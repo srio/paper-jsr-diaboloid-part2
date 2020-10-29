@@ -61,14 +61,15 @@
 
 \title{Diaboloid mirrors II: simulations and applications}
 
-\cauthor[a]{Manuel}{Sanchez del Rio}{srio@esrf.eu}{address if different from \aff}
-\author[b]{Valeriy V.}{Yashchuk}
-\author[b]{Ian}{Lacey}
-\author[b]{Kenneth A.}{Goldberg}
-\author[b]{Howard A.}{Padmore}
+\cauthor[a,b]{Manuel}{Sanchez del Rio}{srio@esrf.eu}{address if different from \aff}
+\author[a]{Valeriy V.}{Yashchuk}
+\author[a]{Ian}{Lacey}
+\author[a]{Kenneth A.}{Goldberg}
+\author[a]{Howard A.}{Padmore}
 
-\aff[a]{European Synchrotron Radiation Facility, 71 Avenue des Martyrs F-38000 Grenoble \country{France}}
-\aff[b]{Advanced Light Source, LBNL, Berkeley CA, USA}
+\aff[a]{Advanced Light Source, LBNL, Berkeley CA, USA}
+\aff[b]{European Synchrotron Radiation Facility, 71 Avenue des Martyrs F-38000 Grenoble \country{France}}
+
 
 
 \begin{synopsis}
@@ -113,23 +114,27 @@ The exact expression of the Diaboloid in the "mirror-related coordinate system" 
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.5\textwidth]{figures/diaboloid_frame.png}
+\includegraphics[width=0.9\textwidth]{figures/diaboloid_frame.png}
 \caption{\label{fig:frame}Schematic of the reference frames in use: "mirror-related coordinate system" $(X,Y,Z)$ and "mirror-canonical system" $(x,y,z)$}
 \end{figure}
 
 The equation of the Diaboloid (point-to-segment focusing or Type I) in the canonical-mirror system is first deduced in Ref.~\cite{Valeriy2020a} and takes the form (Eq.(12) in Ref.~\cite{Valeriy2020b}):
 
-\begin{equation}
+\begin{multline}
 \label{eqn:diaboloidV}
-z(x,y) = p \sin2\theta- \sqrt{ 4 p^2 \sin^4\theta - 2 (p \cos2\theta+q) (y + p  \cos2\theta) + 2 (p+q) (p \cos2\theta + q - \sqrt{x^2 + (q-y)^2}) }.
-\end{equation}
+z(x,y) = p \sin2\theta - 
+[ 4 p^2 \sin^4\theta - \\
+2 (p \cos2\theta+q) (y + p  \cos2\theta) + \\
+2 (p+q) (p \cos2\theta + q - \sqrt{x^2 + (q-y)^2}) ]^{1/2}.
+\end{multline}
 
 
 It is also deduced in Ref.~\cite{Goldberg2020} in this form:
-\begin{equation}
+\begin{multline}
 \label{eqn:diaboloidK}
-z(x,y) = p \sin2\theta - \sqrt{(c^2 + q^2 - s^2) - 2 (s  + q) y - 2 c \sqrt{x^2 + (q-y)^2}},
-\end{equation}
+z(x,y) = p \sin2\theta - [(c^2 + q^2 - s^2) - \\
+2 (s  + q) y - 2 c \sqrt{x^2 + (q-y)^2}]^{1/2},
+\end{multline}
 with $c=p+q$ and $s=p\sin\theta$. It is easy to demonstrate that these two equations are equivalent.
 
 Once we have the equation of the Diaboloid in the canonical-mirror reference system, one has to rotate it an angle $\theta$ around the $x$ axis to retrieve the equation in the mirror-related coordinate system. The expresion obtained is extremely long (see Appendix in Ref.~\cite{Valeriy2020b}). It can be defined in Mathematica as an analytical function, ready for numerical calculations of the desired Diaboloid surface profiles.
@@ -167,12 +172,13 @@ R_t + R_s - \sqrt{R_s^2 - X^2}
 
 \subsection{Parabolic-cone}
 An approximation to the Diaboloid better than the toroid consist in taking a parabola in the meridinal direction and then adding a circle in the sagittal direction. However, the sagittal circle must have different radius for the different $Y$ coordinates. This surface that will be called "parabolic-cone" has been proposed and deduced in Ref.~\cite{Valeriy2020c}. It can be expressed as (Eq.~(17) in \cite{Valeriy2020c}):
-\begin{equation}
+\begin{multline}
 \label{eqn:parabolicCone}
 Z(X,Y) = Y \tan\theta - 2 \sec\theta \tan\theta
-\sqrt{Y p \cos\theta + p^2} + 2 p \sec\theta \tan\theta +
+\sqrt{Y p \cos\theta + p^2} + \\
+2 p \sec\theta \tan\theta +
 k_1 + k_2 Y - \sqrt{(k_1 + k_2 Y)^2 - X^2},
-\end{equation}
+\end{multline}
 where $k_1$ and $k_2$ are
 \begin{equation}
 k_1 = \frac{p q \cos\theta \sin2\theta}{p+q};~~~~~~
@@ -188,7 +194,7 @@ is not linear. The variation of the sagittal radius in a cone is linear, therefo
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.65\textwidth]{figures/sagittalradius.png}
+\includegraphics[width=0.95\textwidth]{figures/sagittalradius.png}
 \caption{\label{fig:sagittalRadius}Radius in the sagittal direction as a function of the tangential coordinate $Y$ for the parabolic-cone (Eq.~\ref{eq:sagRadius}), its linearized value (Eq.~\ref{eq:sagittalRadiusLinearized}), and a naive estimation (see text), using $p$=18.8~m, $q$=8.075~m and $\theta$=2~mrad.
 }
 \end{figure}
@@ -213,7 +219,7 @@ The different equations are codded in Python and interfaced in a Oasys Widget. T
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{figures/widget.png}
+\includegraphics[width=0.95\textwidth]{figures/widget.png}
 \caption{\label{fig:widget}View of the interface to create the numerical sampling of the Diaboloid and related surfaces ("Diaboloid" widget in Oasys/Syned) }
 \end{figure}
 
@@ -252,8 +258,8 @@ To study the aberrations produced by the different surfaces analyze in detail th
 \flushleft
 ~~~~~~a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
 \centering
-\includegraphics[width=0.35\textwidth]{figures/p2s_mathematica1.png}
-\includegraphics[width=0.35\textwidth]{figures/p2s_matematica2.png}
+\includegraphics[width=0.48\textwidth]{figures/p2s_mathematica1.png}
+\includegraphics[width=0.48\textwidth]{figures/p2s_matematica2.png}
 \caption{\label{fig:mathematica}Focal image produced by a Diaboloid calculated using the exact rotation (see text). The graphics show two different horizontal scale: a) to compare with Figs.~\ref{fig:pointToSegment}a,b, and b) zoomed to resolve residual structure width (0.2 nm).
 }
 \end{figure}
@@ -275,13 +281,14 @@ In this section we analyze the possible use of a Diaboloid in a real beamline. W
 $\sigma_x$ = 26 $\mu$m, $\sigma_y$ = 10 $\mu$m, ring electron energy $E_e$=1.9 GeV, magnetic field $B$=5.28~T, photon energy $E$=30 keV, and ii) the ALS-U ring, with $\sigma_x$ = 10 $\mu$m, $\sigma_y$ = 7 $\mu$m, $E_e$=2.0~GeV, $B$=3.1~T, $E$=30~keV. We study the two beamline mirrors: M1 a plane parabola, at $p_1$=6.5~m from the source ($L$ = 900~mm, $\theta$=2 ~mrad) and M2 a toroid/diabolod/parabolic-cone in a Type II (segment-to-point) configuration at $p_2$=18.8~m from the source ($L$=800~mm, $W$=20~mm, $\theta$ = 2~mrad. The exit slit (focal plane) is at $D$=26.875~m from the source.  The M2 magnification M= $(D-p_2)/p_2$=0.43 is close but not exactly matching the "golden" 1:2 toroid geometry \cite{padmore2000, howells2000}. This beamline uses M1 to collimate the beam in the vertical direction in order to optimize the monochromator performance (not simulated) and then M2 refocus the beam at the entrance slit, therefre M2 sees the source at infinity in vertical and at $p_2$ in horizontal. The possible use of a diaboloid or a parabolic-cone mirror in M2 is studied and the performances compared with the current solution (toroid).
 
 \begin{figure}[h]
-\flushleft
-a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
 \centering
-\includegraphics[width=0.24\textwidth]{figures/bl_point_toroid.png}
-\includegraphics[width=0.24\textwidth]{figures/bl_point_parabolic-cone.png}
-\includegraphics[width=0.24\textwidth]{figures/bl_point_diaboloid.png}
-\includegraphics[width=0.24\textwidth]{figures/bl_point_diaboloid-exact.png}
+\flushleft
+a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
+\includegraphics[width=0.48\textwidth]{figures/bl_point_toroid.png}
+\includegraphics[width=0.48\textwidth]{figures/bl_point_parabolic-cone.png} \\
+c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
+\includegraphics[width=0.48\textwidth]{figures/bl_point_diaboloid.png}
+\includegraphics[width=0.48\textwidth]{figures/bl_point_diaboloid-exact.png}
 \caption{\label{fig:bl}Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by (a) a toroid, (b) a parabolic-cone, (c) a Diaboloid using the "basal-plane approximation", and d) a Diaboloid implemented with the exact rotations using code in Ref.~\cite{lacey}. The FWHM of the horizontal and vertical histograms are given in the plot titles. The scale changes in the different plots. Note the large size given by the toroid (4 $\times$ 50 $\mu$m$^2$) contrary to all the other surfaces (submicron level)
 }
 \end{figure}
@@ -332,11 +339,13 @@ To study in more detail the aberrations, ray-tracing calculations are performed 
 
 \begin{figure}[h]
 \flushleft
-a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
 \centering
-\includegraphics[width=0.32\textwidth]{figures/scan_toroid.png}
-\includegraphics[width=0.32\textwidth]{figures/scan_diaboloid.png}
-\includegraphics[width=0.32\textwidth]{figures/scan_parabolic-cone.png}
+a)
+\includegraphics[width=0.95\textwidth]{figures/scan_toroid.png}\\
+b)
+\includegraphics[width=0.95\textwidth]{figures/scan_diaboloid.png}\\
+c)
+\includegraphics[width=0.95\textwidth]{figures/scan_parabolic-cone.png}
 
 \caption{\label{fig:scan}
 Evolution of the (horizontal and vertical) focal size (measured in FWHM and $\sigma$) versus magnification for a beamline with focusing M2 mirror shape: a) toroid, b) Diaboloid and c) Parabolic-cone. 
@@ -369,6 +378,11 @@ The "parabolic-cone" (Eq.~\ref{eqn:parabolicCone}), an  approximation to the Dia
      %-------------------------------------------------------------------------
 
      % Acknowledgements come after the appendices
+
+\section{Acknowledgements}       
+ 
+ 
+This work was supported by the Director, Office of Science, Office of Basic Energy Sciences, of the U.S. Department of Energy under Contract No. DE-AC02-05CH11231.
 
 
 
