@@ -219,8 +219,6 @@ The central sagittal radius $R_s(Y=0)=p q \sin\theta \cos^2\theta/ (p+q)$ is ver
 \subsection{Numerical implementation and testing}
 \label{sec:oasys}
 
-%  different surfaces where the shown equations are used: \inred{Exact diaboloid (solving Eq.~\ref{eqn:quartic}), approximated diaboloid (projected Eq.~\ref{eqn:diaboloidV}), parabolic-quasicone (Eq.~\ref{eqn:parabolicCone}) and toroid (Eq.~\ref{eqn:toroid})}. These surfaces correspond to the Type I (point-to-segment) focusing scheme. The Type II surfaces are calculated by exchanging the $p$ and $q$ values, and flipping the $Y$ array. In the case of diaboloid surfaces, the exact solution is done solving the quartic Eq.~\ref{eqn:quartic}  numerically using the {\tt fqs} python library. The approximated solution performs the passage from the reference frame in Eq.~\ref{eqn:diaboloidV} to ($X,Y,Z$) by detrending a plane as discussed before. Two options are allowed, in the first the plane has an equation $Z=\theta Y$ and in the second one the plane is the result of the best fit of the diaboloid to a plane. We recall that this is an approximation to the diaboloid in the ($X,Y,Z$) frame, but as it will be discussed below, it is usually a good approximation for small grazing angles. A system analyzed in Ref.~\cite{Yashchuk2019} shows a case where this approximation cannot be used. \inred{For practical purposes, one may  always prefer to use the exact solution.}
-
 A graphical interface or widget in the Oasys environment  creates the diaboloid surface and its approximations in the form of a numerical mesh. The user selects the type of surface to calculate (exact diaboloid or other approximations), the mirror geometry (size and sampling) and the focusing arrangement (conversion from cylindrical to spherical wave or viceversa). The interface also allows to remove the toroid from the calculated surface to enhance the aspherical terms. The surface is written in a {\tt hdf5} formatted file, as it is standard for Oasys surfaces. This format allows to input easily the numerical surface into several Oasys applications, like the ray-tracing tool ShadowOui \cite{codeSHADOWOUI}, but also in wave-optics codes (SRW, Wofry). A view of the interface is in Fig.~\ref{fig:widget}.
 
 \begin{figure}\label{fig:widget}
@@ -229,10 +227,6 @@ A graphical interface or widget in the Oasys environment  creates the diaboloid 
 \caption{View of the interface to create the numerical sampling of the diaboloid and related surfaces ("Diaboloid" widget in Oasys/Syned) }
 \end{figure}
 
-% To use the created surface with the ray-tracing tool, the Diaboloid widget has to be connected to a "Plane mirror" via the "Oasys Surface Data Converter" found in ShadowOui that will automatically convert the file in {\tt hdf5} format to SHADOW format. The reason of using a Plane mirror is because we add the numeric surface to an existing one. If we select the "Plane" the numeric mesh is added until a flat surface $Z(X,Y)$=0. Another possibility is to use the ShadowOui "Toroidal Mirror" and add the Diaboloid but created with the option "detrend Toroid" activated.  
-
-% \section{Testing the diaboloid surfaces by ray-tracing}
-% \label{sec:testing}
 
 We performed ray tracing using a single diaboloid with the purpose to test the accuracy of the calculations. The simpler case of point-to-segment configuration is chosen, with $p$=29.3~m, $q$=19.53~m and $\theta$=4.5~mrad. A point source is created with divergence large enough to fully illuminate the mirror dimensions: length $L$=0.2~m, and width $W$=0.02~m.
 
@@ -261,13 +255,10 @@ The expected result at the focal position is a line focus (segment) with zero di
 %) , linearized paraboloid (Eq.~\ref{eqn:parabolicCone}) and toroid. 
 The intensity profile along the vertical direction has a non-uniform profile due to the beam intensity projected on the mirror surface with a grazing angle.
 %As expected, the toroid produces a very aberrated and wide spot (2.5 $\mu$m FWHM and high tails). The parabolic-quasicone reduces the FWHM by two orders of magnitude (22 nm). Aberration tails are observed in this case. 
-Both numerical surfaces produce an almost perfect focusing without aberration tails. However, some residual width is found: 0.15 nm for the exact diaboloid equation and \inred{88} nm for the approximated one. 
+Both numerical surfaces produce an almost perfect focusing without aberration tails. However, some residual width is found: 0.15 nm for the exact diaboloid equation and 88 nm for the approximated one. 
 %These values are much below the typical dimensions in practical cases where spots of $\mu$m size or larger are expected because the source size and optical aberrations. 
 The residual 0.15 nm in the exact implementation is certainly due to numerical round errors and also the use of iterative algorithms to find ray intersects, as done in SHADOW.
-%For practical purposes, both numerical implementations of the diaboloid are good enough. 
-\inred{The approximate form of the diaboloid appears to be adequate for all practical implementations, as typically we will be imaging a source with a horizontal size of 10 – 50 microns, and the errors in comparison are insignificant.  The approximate method is interesting as it gives an intuitive and simple direct way to visualize the surface.}
-%The linearized parabolic cone possibly is useful as it gives a way to make a simpler surface that might be easier to manufacture.
-
+The approximate form of the diaboloid appears to be adequate for all practical implementations, as typically we will be imaging a source with a horizontal size of 10 – 50 microns, and the errors in comparison are insignificant.  The approximate method is interesting as it gives an intuitive and simple direct way to visualize the surface.
 
 \section{Ray-tracing the ALS beamline 12.2.2}
 \label{sec:beamline}
@@ -318,7 +309,7 @@ M2 refocuses the source to the focus from infinity in the vertical direction and
 % ~~~~~c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d) \\
 % \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid.png}
 \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
-\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The with values (FWHM) of the intensity distributions are written in the graphic titles. \inred{REMOVE ROW 3? REDO ROW 3 WITH WHITE BACKGROUND}
+\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The with values (FWHM) of the intensity distributions are written in the graphic titles. \todo{REMOVE ROW 3? REDO ROW 3 WITH WHITE BACKGROUND}
 }
 \end{figure}
 
