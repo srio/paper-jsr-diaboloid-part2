@@ -77,7 +77,7 @@ xxxxx
 \end{synopsis}
 
 \begin{abstract}
-The diaboloid is a reflecting surface that convert a spherical wave to a cylindrical wave. This complex surface may find application in new ALS-U bending magnet beamlines or in other  beamlines that now exploit todoidal optics for astigmatic focusing. We describe here the numerical implementation of the diaboloid mirrors and study by ray tracing the benefit of this mirror in beamlines exploiting diffraction-limited storage rings.
+The diaboloid is a reflecting surface that convert a spherical wave to a cylindrical wave. This complex surface may find application in new ALS-U bending magnet beamlines or in other  beamlines that now exploit toroidal optics for astigmatic focusing. We describe here the numerical implementation of the diaboloid mirrors and study by ray tracing the benefit of this mirror in beamlines exploiting diffraction-limited storage rings.
 \end{abstract}
 
 \section{Introduction}
@@ -150,13 +150,13 @@ For practical purposes we want to define the diaboloid surface as a function of 
 
 \end{tikzpicture}
 
-\caption{Schematic of the reference frames in use: "mirror-related coordinate system" $(X,Y,Z)$ and "mirror-canonical system" $(x,y,z)$}
+\caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of Eq.~\ref{eqn:diaboloidV}. \todo{A 3D VIEW AND MAY BE A SAGITTAL SECTION COULD BE ADDED}}
 \end{figure}
 
 
 
 The equation of the diaboloid in the ``collimaing'' configuration takes the form  Ref.~\cite{valSPIE} 
-\todo{IT MAY BE DEDUCED IN AN APPENDIX OR SUPPLEMENTARY MATERIAL FOLLOWING LSBL1440}
+\todo{IT MAY BE DEDUCED IN AN APPENDIX OR SUPPLEMENTARY MATERIAL FOLLOWING KEN LSBL1440 AND HOWARD LSBL 1465 FOR THE ELLIPSE}
 
 \begin{multline}
 \label{eqn:diaboloidV}
@@ -166,15 +166,11 @@ z(x,y) = q \sin2\theta -
 2 (p+q)  \sqrt{x^2 + (y + p)^2}) 
 ]^{1/2}.
 \end{multline}
-The mirror height is $z$=0 at the mirror center position $x, y$=0, as expected. The tangential profile ($x$=0) is a parabola $y=q \sin2\theta + z^2/(4f)$ and focal length $ f = q (1-\cos2\theta) /2$. For small angles ($\cos2\theta\approx 1 - 2\theta^2$) and $|y|\ll q$ gives $z\approx 2 \theta q + \theta y$ with slope in the center $dz/dy=\theta$. The sagittal section ($y$=0) is an ellipse $x^2/a^2 + (z + q \sin2\theta)^2/b^2=1$ with semiaxes $a=q \sin2\theta$ and $b=a \sqrt{p /(p+q)}$ \todo{REF HOWARD LSBL 1465}. 
+The mirror height is $z$=0 at the mirror center position $x, y$=0, as expected. The tangential profile ($x$=0) is a parabola $y=q \sin2\theta + z^2/(4f)$ and focal length $ f = q (1-\cos2\theta) /2$. For small angles ($\cos2\theta\approx 1 - 2\theta^2$) and $|y|\ll q$ gives $z\approx 2 \theta q + \theta y$ with slope in the center $dz/dy=\theta$. The sagittal section ($y$=0) is an ellipse $x^2/a^2 + (z + q \sin2\theta)^2/b^2=1$ with semiaxes $a=q \sin2\theta$ and $b=a \sqrt{p /(p+q)}$. 
 
 For ray tracing calculations it is convinient to obtain the numerical mesh as a function of a mirror-related coordinate system ($X,Y,Z$) (Fig.~\ref{fig:frame}), with origin in the center of the mirror, one axis ($Y$) tangent to the diaboloid surface origin in the direction of the beam propagation, another axis ($X$) tangent to the diaboloid surface origin in the direction perpendicular of the beam propagation, and the third axis ($Z$) is outward pointing perpendicular to $X$ and $Y$. Therefore the surface in its explicit form needed for being evaluated numerically is $Z(X,Y)$ with $X \in [-W/2, W/2]$ and $Y \in [-L/2, L/2]$ with $L$ the mirror length and $W$ the mirror width. The mirror length is sampled in $N_Y$ points and the mirror width in $N_X$ points, therefore the height or elevation of a point is $Z_{i,j}=Z(X_i,Y_j)$.
 In most practical cases the grazing incidence $\theta$ is small, therefore Eq.~\ref{eqn:diaboloidV} can be expressed in the $X,Y,Z$ frame by forcing zero slope at the origin (i.e., detrending the plane $z_{plane}=y \theta$). This is done numerically after evaluating the surface using Eq.~\ref{eqn:diaboloidV}. 
 The exact explicit expression of the diaboloid $Z(X,Y)$ can be obtained from the rotation of Eq.~\ref{eqn:diaboloidV} an angle $\theta$ \cite{part2}, resulting in a fourth-degree poynomial equation $F(X,Y,Z)=0$. The explicit equation is therefore obtained by solving this equation for the any point of the $(X_i,Y_j)$ mesh.
-
-
-
-\subsection{Approximations of the diaboloid}\label{sec:approximations}
 
 The simplest approximaton of the diaboloid is the toroid, approximated by a doubly bent surface with radii $R_m$ and $R_s$ (in the meridional and sagittal directions, respectively) given by the focusing conditions (Coddington equations):
 
@@ -184,37 +180,17 @@ The simplest approximaton of the diaboloid is the toroid, approximated by a doub
 \frac{1}{p} + \frac{1}{q} = \frac{2\sin\theta}{ R_s}.
 \end{equation}
 
+An approximation to the diaboloid is a parabolic cone, in which the tangential shape at a transverse coordinate of zero is the parabola, and the sagittal shape is a circle, whose radius changes as a function of longitudinal coordinate $Y$ \cite{part2}
 
-An approximation to the diaboloid better than the toroid consist in taking a parabola in the meridinal direction and then adding a circle in the sagittal direction. However, the sagittal circle must have different radius for the different $Y$ coordinates. This surface has the form \cite{part2}
-
-\begin{multline}
-\label{eqn:parabolicCone}
-Z(X,Y) = Y \tan\theta - 2 \sec\theta \tan\theta
-\sqrt{Y p \cos\theta + p^2} + \\
-2 p \sec\theta \tan\theta +
-k_1 + k_2 Y - \sqrt{(k_1 + k_2 Y)^2 - X^2},
-\end{multline}
-where $k_1$ and $k_2$ are
-\begin{equation}
-k_1 = \frac{p q \cos\theta \sin2\theta}{p+q};~~~~~~
-k_2 = \frac{\sin2\theta(q-2p\cos^2\theta)}{2(p+q)}.
-\end{equation}
-
-
-The variation of the sagittal radius versus $Y$  (Eq. 35 in \cite{part2}) is approximately linear
 \begin{multline}
 \label{eq:sagRadius}
-R_s(Y) = \frac{2  p \sin\theta \cos\theta}{p + q} (q - Y \cos\theta)   \sqrt{Y \cos\theta / p + \cos^2\theta} \\
+R_s(Y) 
+% = \frac{2  p \sin\theta \cos\theta}{p + q} (q - Y \cos\theta)   \sqrt{Y \cos\theta / p + \cos^2\theta} \\
 \approx 
 \frac{2p q \cos^2\theta \sin\theta  }{p + q} - 
 \frac{\cos\theta \sin\theta (2 p \cos^2\theta - q)}{p + q} Y.
 \end{multline}
 The central sagittal radius $R_s(Y=0)=p q \sin\theta \cos^2\theta/ (p+q)$ is very close, but not exact to the one given by the Coddington equation $R_s^c=2 p q \sin\theta / (p+q)$.
-
-\todo{FOR SIMPLICITY IT MAY BE POSSIBLE TO REMOVE EQS. \ref{eqn:radii} AND \ref{eqn:parabolicCone} AND LEAVE ONLY THE LINEARIZED APPROXIMATION IN EQ. \ref{eq:sagRadius}} 
-
-\todo{IT MAY BE POSSIBLE TO DISCUSS HERE THE COLLAPSING OF THE LINEAR TERM IN 2:1 CONFIGURATION... BUT I PREFERRED TO SEE IT LATER}
-%The second comment is that the variation of the sagittal radius given by Eq.~\ref{eq:sagRadius} is significantly different (see Fig.~\ref{fig:sagittalRadius}) to a "naive" variation generated the applying the Coddington equation at every point in $Y$ (that "sees" the source and image at distances $p'=\sqrt{(-p \cos\theta - Y)^2 + (p \sin\theta)^2}$ and $q'=\sqrt{(q \cos\theta - Y)^2 + (q \sin\theta)^2}$, respectively, and angle $\theta'=\arcsin(p \sin\theta / p')$).
 
 
 \subsection{Numerical implementation and testing}
@@ -259,7 +235,7 @@ The intensity profile along the vertical direction has a non-uniform profile due
 %As expected, the toroid produces a very aberrated and wide spot (2.5 $\mu$m FWHM and high tails). The parabolic-quasicone reduces the FWHM by two orders of magnitude (22 nm). Aberration tails are observed in this case. 
 Both numerical surfaces produce an almost perfect horizontal focus without aberration tails. However, some residual width is found: 0.3 nm for the exact diaboloid equation and 93 nm for the approximated one. 
 %These values are much below the typical dimensions in practical cases where spots of $\mu$m size or larger are expected because the source size and optical aberrations. 
-The residual 0.3 nm in the exact implementation is certainly due to numerical round errors and also the use of iterative algorithms to find ray intersects, as done in SHADOW.
+The residual 0.3 nm in the exact implementation is certainly due to numerical rounding errors and also the use of iterative algorithms to find ray intersects, as done in SHADOW.
 The approximate form of the diaboloid gives a residual of 93 nm that is originated by the use of the basal plane detrending replacing the exact rotation. It appears, however, to be adequate for all practical implementations, as typically we will be imaging a source with a horizontal size of 10 – 50 microns, and the errors in comparison are insignificant. The approximate method is interesting as it gives an intuitive and simple direct way to visualize the surface.
 
 \section{Ray-tracing the ALS beamline 12.2.2}
@@ -311,7 +287,7 @@ M2 refocuses the source to the focus from infinity in the vertical direction and
 % ~~~~~c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d) \\
 % \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid.png}
 \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
-\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The with values (FWHM) of the intensity distributions are written in the graphic titles. \todo{REMOVE ROW 3? REDO ROW 3 WITH WHITE BACKGROUND}
+\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The with values (FWHM) of the intensity distributions are written in the graphic titles. \todo{REMOVE ROW 3?}
 }
 \end{figure}
 
@@ -453,16 +429,16 @@ We apply this analysis to the case of the beamline 12.2.2 studied before. For th
 a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
 \centering
 \includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/paraboliccone_bl1222_detrended_image.png} 
+\includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_image.png} 
 \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_image.png} 
 
 
 \includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/paraboliccone_bl1222_detrended_profile.png}
+\includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_profile.png}
 \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_profile.png}
 
-\caption{
-a) Diaboloid surface with a toroid detrended for BL 12.2.2 and selected sagittal profiles. b) Parabolic quasicone approximation with the toroid detrended. c) Elliptical cylinder bent to a parabola. The detrended toroid major radius is R=8.075 Km and the minor radius is  r=22.595 mm.
+\caption{Surface shapes for BL 12.2.2 with a toroid detrended and selected sagittal profiles.
+a) Diaboloid, b) cone (Eq.~\ref{eq:sagRadius}). c) Elliptical cylinder bent to a parabola. The detrended toroid major radius is R=8.075 Km and the minor radius is  r=22.595 mm.
 }
 \end{figure}
 
@@ -471,25 +447,42 @@ a) Diaboloid surface with a toroid detrended for BL 12.2.2 and selected sagittal
 
 
 
-Two approximated solutions are studied by ray tracing. First, using a substrate with a circular sagittal section with radius that linearly changes along the $Y$ (tangential) direction Fig.~\ref{fig:detrendedBeamline}b as indicated in Eq.~\ref{eq:sagRadius}. The second one, more precise at a first view, would consist in pre-shaping a cylinder with elliptical (sagittal) section that is the exact sagittal profile at $Y$=0 (Fig.~\ref{fig:detrendedBeamline}c).  This cylinder with elliptical section could be envisaged to be manufactured with sufficient accuracy. 
+Two approximated solutions are studied by ray tracing. First, using a substrate with a circular sagittal section with radius that linearly changes along the $Y$ (tangential) direction Fig.~\ref{fig:detrendedBeamline}b as indicated in Eq.~\ref{eq:sagRadius} (cone). The second one, more precise at a first view, would consist in pre-shaping a cylinder with elliptical (sagittal) section that is the exact sagittal profile at $Y$=0 (Fig.~\ref{fig:detrendedBeamline}c).  This cylinder with elliptical section could be envisaged to be manufactured with sufficient accuracy. 
 
-The spot size produced by the diaboloid is 10 $\times$ 18 $\mu$m$^2$, and 13 $\times$ 25 $\mu$m$^2$ with the first approximation (cone bent to parabola). In the case that this cone is degenerated into a cylinder, the size becomes 13 $\times$ 33 $\mu$m$^2$ and an aberration tail appears. This is due that this beamline is close but not exactly at 1:2 magnification (it is exactly $p$:$q$=8.075:18.800). If using the second approximation (cylinder with elliptical section) we obtain a similar spot: 15 $\times$ 33 $\mu$m$^2$ and an aberration tail, for the same reason. We check now the beamline in a perfect 1:2 confuguration, by setting $q$=9.4 m. In this configuration, the spot calculated with the diaboloid and the two approximations used are compared in Fig.~\ref{fig:finalcomparison}. The resulting focal sizes are similar for both approximations. In conclusion, clearly the approximations for the diaboloid shape work well at 2:1 demagnification. However at even small deviations from the 2:1 condition, the exact diaboloid surface has to be used.
+The spot size produced by the diaboloid is 10 $\times$ 18 $\mu$m$^2$ (Fig.~\ref{fig:als}b$_2$), and 12 $\times$ 23 $\mu$m$^2$ with the first approximation (cone bent to parabola) (Fig.~\ref{fig:finalcomparison}a). In the case that this cone is degenerated into a cylinder, the size becomes 14 $\times$ 33 $\mu$m$^2$ and an aberration tail appears in vertical (Fig.~\ref{fig:finalcomparison}b). This is due that this beamline is close but not exactly at 1:2 magnification (it is exactly M=$q$:$p$=8.075:18.800). If using the second approximation (cylinder with elliptical section) we obtain: 16 $\times$ 38 $\mu$m$^2$ with aberration tail, for the same reason (Fig.~\ref{fig:finalcomparison}c). Looking at the horizontal direction we see a small background using the shape with circular sagittal section (Fig.~\ref{fig:finalcomparison}a and b) as compared with the cleaner distribution for the elliptical sagittal section (Fig.~\ref{fig:finalcomparison}c). 
 
-%approximated sagittal cylinders work well only in 1:2 magnification, and there is no additional benefit to make an elliptical shape with respect to the circular one. For other magnifications the exact diaboloid should be used.   
+We check now the beamline in a perfect 1:2 configuration, by setting $q$=9.4 m. In this configuration the diaboloid gives 12 $\times$ 22 $\mu$m$^2$ (not shown), 13 $\times$ 26 $\mu$m$^2$ for the cone and for the circular cylinder (Fig.~\ref{fig:finalcomparison}d), as expected because for 1:2 magnification the cone degenerates in a cylinder. The result for the elliptical cylinder is similar (not shown), demonstrating that there is no much benefit in this case to shape the cylinder with a more complicated elliptical section.   
+
+
+In conclusion, all approximations for the diaboloid shape (including the simplest circular cylinder bent to a parabola) work well at exact 2:1 demagnification. However at even small deviations from the 2:1 condition like in the present bl 12.2.2 case, the approximation of the diaboloid by a cone has to be used to eliminate the asymmetric aberration tail in tangential direction. For other magnifications the exact diaboloid should be used.
+
+%approximated sagittal cylinders work well only in 1:2 magnification, and there is no additional benefit to make an elliptical shape with respect to the circular one. .   
 
 
 
 
 \begin{figure}\label{fig:finalcomparison}
 \flushleft
-a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
+a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
 \centering
-\includegraphics[width=0.32\textwidth]{figures/final_exact.png} 
-\includegraphics[width=0.32\textwidth]{figures/final_approx1.png} 
-\includegraphics[width=0.32\textwidth]{figures/final_approx2corrected.png} 
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1.png} 
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_linearized.png}\\
 
-\caption{ Image produced by bl 12.2.2 in exact 1:2 magnification by 
-a) exact diaboloid b) Diaboloid approximated by a cylinder (circular section) bent to a parabola c) Diaboloid approximated by a cylinder (elliptical section) bent to a parabola (in this case the distance $p$ has been shifted from $q$=9.4 m to $q$=9.1 m for correcting a small residual aberration tail). \inred{THE REAL CASE (NOT EXACTLY 1:2) COULD BE ADDED AS WELL} 
+\flushleft
+c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
+\centering
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx2.png} 
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_exact1over2.png} 
+% \flushleft
+% a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c$_2$)\\
+% \centering
+% \includegraphics[width=0.32\textwidth]{figures/final_approx1.png} 
+% \includegraphics[width=0.32\textwidth]{figures/final_approx1_linearized.png} 
+% \includegraphics[width=0.32\textwidth]{figures/final_approx2.png}
+
+
+\caption{ Image produced by bl 12.2.2 with: 
+a) Diaboloid approximated by a cone (circular section) bent to a parabola b) Diaboloid approximated by a cylinder (circular section) bent to a parabola c) Diaboloid approximated by a cylinder (elliptical section) bent to a parabola, and d) like b) but in exact 2:1 configuration (M=$q$:$p$=9.4:18.800).
 }
 \end{figure}
 
