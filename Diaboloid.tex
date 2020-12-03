@@ -92,13 +92,13 @@ This surface was first described by \cite{McKinneySPIE2009} and described as a {
 
 It is important to note that fabrication of such complex surfaces has been impossible, at the slope error level that we require.  For a typical application at ALS, the mirror to source distance is 20 m, and so with a 10 $\mu$m vertical source size, including angle doubling on reflection, an angular error budget of half of the angular size of the source, the tangential slope error tolerance is 0.13 $\mu$rads.  The sagittal slope error tolerance is 18 $\mu$rads.  The tangential tolerance is extremely challenging, but mainly limited by metrology.  Local area correction, and stitching interferometer-based metrology have led to 1D curved optics with significantly smaller slope errors \cite{Yamauchi2002}.  The problem is that current high accuracy metrology techniques cannot work with steeply curved optics.  One possible solution is to use metrology based on computer generated hologram (CGH) reference beams, as now widely used in free form optics fabrication. In addition, we have investigated an approximation to the diaboloid which should be much easier to manufacture and test, but which gives similarly high performance. 
 
-We created a tool in the Oasys environment \cite{codeOASYS} that implements numerically the diaboloid surfaces and its approximations. A new widget is created in Oasys (Section~\ref{sec:oasys}) send the created surface to the ray-tracing code SHADOW \cite{codeSHADOW}. We used this application to make simulations of the ALS beamline 12.2.2 (Section~\ref{sec:beamline}) where the toroid is upgraded with diaboloid and the performances are compared for the present ALS storage ring and for the future upgrade ALS-U. We treated in Section~\ref{sec:scan} a possible upgrade of this beamline using high demagnification and analyze the feasibility of using the simpler parabolic-cone to replace diaboloids. The use of surfaces that approximate the diaboloid is analyzed in Section~\ref{sec:approximatedShapes}. Final remarks are given in Section~\ref{sec:summary}.
+We created a tool in the Oasys environment \cite{codeOASYS} that implements numerically the diaboloid surfaces and its approximations. A new widget is created in Oasys (Section~\ref{sec:oasys}) send the created surface to the ray tracing code SHADOW \cite{codeSHADOW}. We used this application to make simulations of the ALS beamline 12.2.2 (Section~\ref{sec:beamline}) where the toroid is upgraded with diaboloid and the performances are compared for the present ALS storage ring and for the future upgrade ALS-U. We treated in Section~\ref{sec:scan} a possible upgrade of this beamline using high demagnification and analyze the feasibility of using the simpler parabolic-cone to replace diaboloids. The use of surfaces that approximate the diaboloid is analyzed in Section~\ref{sec:approximatedShapes}. Final remarks are given in Section~\ref{sec:summary}.
 
 
 \section{Definition and implementation of the diaboloid surface}
 \label{sec:DiaboloidEqs}
 
-For practical purposes we want to define the diaboloid surface as a function of the focal distances $p,q$ ($p$ is the source-mirror distance, $q$ is the mirror-image distance) and the grazing incidence angle is $\theta$. The diaboloid can be placed in two configurations: i) ``collimating'' to convert a spherical wave into a cylindrical wave (geometrically a point-to-segment focusing, and ii) ``focusing'' to convert a cylindrical wave into a spherical one (or segment-to-point focusing). The latter (Fig.~ref{fig:frame}) is the usual configuration in synchrotron beamlines, where the main purpose is to refocus a beam that is collimated in the vertical direction and divergent in the horizontal. 
+For practical purposes we want to define the diaboloid surface as a function of the focal distances $p,q$ ($p$ is the source-mirror distance, $q$ is the mirror-image distance) and the grazing incidence angle is $\theta$. The diaboloid can be placed in two configurations: i) ``collimating'' to convert a spherical wave into a cylindrical wave (geometrically a point-to-segment focusing, and ii) ``focusing'' to convert a cylindrical wave into a spherical one (or segment-to-point focusing). The latter (Fig.~\ref{fig:frame}) is the usual configuration in synchrotron beamlines, where the main purpose is to refocus a beam that is collimated in the vertical direction and divergent in the horizontal. 
 
 
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
@@ -125,7 +125,7 @@ z(x,y) = q \sin2\theta -
 \end{multline}
 The mirror height is $z$=0 at the mirror center position $x, y$=0, as expected. The tangential profile ($x$=0) is a parabola $y=q \sin2\theta + z^2/(4f)$ and focal length $ f = q (1-\cos2\theta) /2$. For small angles ($\cos2\theta\approx 1 - 2\theta^2$) and $|y|\ll q$ gives $z\approx 2 \theta q + \theta y$ with slope in the center $dz/dy=\theta$. The sagittal section ($y$=0) is an ellipse $x^2/a^2 + (z + q \sin2\theta)^2/b^2=1$ with semiaxes $a=q \sin2\theta$ and $b=a \sqrt{p /(p+q)}$. 
 
-For ray tracing calculations it is convinient to obtain the numerical mesh as a function of a mirror-related coordinate system ($X,Y,Z$) (Fig.~\ref{fig:frame}), with origin in the center of the mirror, one axis ($Y$) tangent to the diaboloid surface origin in the direction of the beam propagation, another axis ($X$) tangent to the diaboloid surface origin in the direction perpendicular of the beam propagation, and the third axis ($Z$) is outward pointing perpendicular to $X$ and $Y$. Therefore the surface in its explicit form needed for being evaluated numerically is $Z(X,Y)$ with $X \in [-W/2, W/2]$ and $Y \in [-L/2, L/2]$ with $L$ the mirror length and $W$ the mirror width. The mirror length is sampled in $N_Y$ points and the mirror width in $N_X$ points, therefore the height or elevation of a point is $Z_{i,j}=Z(X_i,Y_j)$.
+For ray tracing calculations it is convinient to obtain the numerical mesh as a function of a mirror-related coordinate system ($X,Y,Z$) (Fig.~\ref{fig:frame}), with origin in the center of the mirror, one axis ($Y$) tangent to the diaboloid surface origin in the direction of the beam propagation, another axis ($X$) tangent to the diaboloid surface origin in the direction perpendicular of the beam propagation, and the third axis ($Z$) is outward pointing perpendicular to $X$ and $Y$. \inred{Therefore the surface in its explicit form needed for being evaluated numerically is $Z(X,Y)$ with $X \in [-W/2, W/2]$ and $Y \in [-L/2, L/2]$ with $L$ the mirror length and $W$ the mirror width. The mirror length is sampled in $N_Y$ points and the mirror width in $N_X$ points, therefore the height or elevation of a point is $Z_{i,j}=Z(X_i,Y_j)$ REMOVE?.}
 In most practical cases the grazing incidence $\theta$ is small, therefore Eq.~\ref{eqn:diaboloidV} can be expressed in the $X,Y,Z$ frame by forcing zero slope at the origin (i.e., detrending the plane $z_{plane}=y \theta$). This is done numerically after evaluating the surface using Eq.~\ref{eqn:diaboloidV}. 
 The exact explicit expression of the diaboloid $Z(X,Y)$ can be obtained from the rotation of Eq.~\ref{eqn:diaboloidV} an angle $\theta$ \cite{part2}, resulting in a fourth-degree poynomial equation $F(X,Y,Z)=0$. The explicit equation is therefore obtained by solving this equation for the any point of the $(X_i,Y_j)$ mesh.
 
@@ -155,7 +155,7 @@ The central sagittal radius $R_s(Y=0)=p q \sin\theta \cos^2\theta/ (p+q)$ is ver
 
 A graphical interface or widget in the Oasys environment  creates the diaboloid surface and its approximations in the form of a numerical mesh. The user selects the type of surface to calculate (diaboloid or other approximations), the mirror geometry (size and sampling) and the focusing arrangement (conversion from cylindrical to spherical wave or viceversa). 
 The diaboloid is implemented in an approximated way by using the detrended Eq.\ref{eqn:diaboloidV} or in an exact form by solving numerically its implicit quartic equation using the {\tt fqs} python library by N. Krvavika ({\tt https://github.com/NKrvavica/fqs}). 
-The interface also allows to remove the toroid from the calculated surface to visualize and use the aspherical components. The surface is written in a {\tt hdf5} formatted file, as it is standard for Oasys surfaces. This format allows to input easily the numerical surface into several Oasys applications, like the ray-tracing tool ShadowOui \cite{codeSHADOWOUI}, but also in wave-optics codes. A view of the interface is in Fig.~\ref{fig:widget}.
+The interface also allows to remove the toroid from the calculated surface to visualize and use the aspherical components. The surface is written in a {\tt hdf5} formatted file, as it is standard for Oasys surfaces. This format allows to input easily the numerical surface into several Oasys applications, like the ray tracing tool ShadowOui \cite{codeSHADOWOUI}, but also in wave-optics codes. A view of the interface is in Fig.~\ref{fig:widget}.
 
 \begin{figure}\label{fig:widget}
 \centering
@@ -187,15 +187,15 @@ The Full-Width at Half-Maximum (FWHM) is 0.3 nm (a) and 93 nm (b). %, 22 nm (c),
 }
 \end{figure}
 
-The expected result at the focal position is a line focus (segment) with zero dimension in horizontal and a length of $L\sin\theta$ in vertical. The ray-tracing results are shown in Fig.~\ref{fig:pointToSegment} where the focal images produced by a diaboloid calculated with the two mentioned methods (exact diaboloid and detrended Eq.~\ref{eqn:diaboloidV}).
+The expected result at the focal position is a line focus (segment) with zero dimension in horizontal and a length of $L\sin\theta$ in vertical. The ray tracing results are shown in Fig.~\ref{fig:pointToSegment} where the focal images produced by a diaboloid calculated with the two mentioned methods (exact diaboloid and detrended Eq.~\ref{eqn:diaboloidV}).
 The intensity profile along the vertical direction has a non-uniform profile due to the beam intensity projected on the mirror surface with a grazing angle.
 %As expected, the toroid produces a very aberrated and wide spot (2.5 $\mu$m FWHM and high tails). The parabolic-quasicone reduces the FWHM by two orders of magnitude (22 nm). Aberration tails are observed in this case. 
 Both numerical surfaces produce an almost perfect horizontal focus without aberration tails. However, some residual width is found: 0.3 nm for the exact diaboloid equation and 93 nm for the approximated one. 
 %These values are much below the typical dimensions in practical cases where spots of $\mu$m size or larger are expected because the source size and optical aberrations. 
 The residual 0.3 nm in the exact implementation is certainly due to numerical rounding errors and also the use of iterative algorithms to find ray intersects, as done in SHADOW.
-The approximate form of the diaboloid gives a residual of 93 nm that is originated by the use of the basal plane detrending replacing the exact rotation. It appears, however, to be adequate for all practical implementations, as typically we will be imaging a source with a horizontal size of 10 – 50 microns, and the errors in comparison are insignificant. The approximate method is interesting as it gives an intuitive and simple direct way to visualize the surface.
+The approximate form of the diaboloid gives a residual of 93 nm that is mainly originated by the use of the basal plane detrending replacing the exact rotation. It appears, however, to be adequate for all practical implementations, as typically we will be imaging a source with a horizontal size of 10 – 50 microns, and the errors in comparison are insignificant. The approximate method is interesting as it gives an intuitive and simple direct way to visualize the surface.
 
-\section{Ray-tracing the ALS beamline 12.2.2}
+\section{Ray tracing the ALS beamline 12.2.2}
 \label{sec:beamline}
 
 We analyze here the possible use of a diaboloid in a real beamline. We study the case of beamline 12.2.2  at ALS \cite{bl1222} \cite{MacDowell2004}. The source of this beamline is a bending magnet, and we simulated the emission at a photon energy of $E$=30~keV. We consider three cases: i) using a source point, ii) the ALS ring
@@ -244,21 +244,20 @@ M2 refocuses the source to the focus from infinity in the vertical direction and
 % ~~~~~c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d) \\
 % \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid.png}
 \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
-\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The width values (FWHM) of the intensity distributions are written in the graphic titles. Contrast in the images is set to log scale for better visibility. \todo{REMOVE ROW 3?}
+\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The width values (FWHM) of the intensity distributions are written in the graphic titles. The images contrast is set to logarithmic scale for better visibility. \todo{REMOVE ROW 3?}
 }
 \end{figure}
 
 In Fig.~\ref{fig:als} we compared the images produced by the beamline for a source using the ALS and ALS-U bending magnets. For the ALS case, the diaboloid obviously improves the toroid case currently impemented, but the gain is not dramatic: a factor 2 in vertical FWHM and less in horizontal, which justifies the use of toroids because manufacturing diaboloids is still a challenge. For the ALS-U the gain of using diabloids is increased to almost a factor 3 in FWHM vertical, which for the toroid is dominated by aberrations.
-The use of a point source helps to address the residual widths for the diaboloid, because it should give zero width. As discussed in the previous section, numeric and sampling errors produce here a residual of a few nanometeres, which is negligeable with respect of the contribution of the source size. %2.7 $\times$ 7.3 nm$^2$. \inred{It is perhaps also influenced by a negligible but non-zero aberration originated by M1 (a plane parabola) which does not create an exact cylindrical wavefront.}  One can appreciate the high aberrations of the toroid. Two effects can be observed. The intensity profiles produced by the parabolic-cone mirror have aberrated tails not present in the diaboloid.
-%The parabolic-cone is a good approximation as it completely removed the toroid aberrations in vertical, although presenting similar intensity profile in horizontal.
+The use of a point source helps to address the residual widths for the diaboloid, because it should give zero width. As discussed in the previous section, numeric and sampling errors produce here a nanometric-size residual, which is negligeable with respect of the contribution of the source size.
 
 It can be concluded that for the ALS-U there is a significant improvement in the focal image if the toroid is replaced by a diaboloid.
-%The parabolic-cone is a good approximation of the diaboloid, producing an image of comparable with the diaboloid in terms of FHWM (just a bit larger) but presenting higher tails in the horizontal intensity. 
+ 
 
 \section{The use of diaboloid for high demagnification}
 \label{sec:scan}
 
-In this section we study a possible upgrade of the beamline to obtain a smaller spot size. For that the magnification of the beamline has to be reduced. We study the beamline presented in the last section for ALS-U where the exit arm of the M2 mirror is reduced to have a smaller magnification M=$q/p$. The position of M2 is not changed therefore the length of the beamline is not constant. We have performed ray-tracing simulations where the M factor is changed to values 1:5 and 1:10 (Fig.~\ref{fig:demagnification}). It can be observed the extremely high aberrations produced by the toroid, which makes its use impossible for these configurations. On the contrary, the diaboloid produces nice Gaussian non-aberrated intensity profiles, as expected.
+In this section we study a possible upgrade of the beamline to obtain a smaller spot size. For that the magnification of the beamline has to be reduced. We study the beamline presented in the last section for ALS-U where the exit arm of the M2 mirror is reduced to have a smaller magnification M=$q/p$. The position of M2 is not changed therefore the length of the beamline is not constant. We have performed ray tracing simulations where the M factor is changed to values 1:5 and 1:10 (Fig.~\ref{fig:demagnification}). It can be observed the extremely high aberrations produced by the toroid, which makes its use impossible for these configurations. On the contrary, the diaboloid produces nice Gaussian non-aberrated intensity profiles, as expected.
 %Interestingly, the parabolic-cone completely removed all the aberration in the toroid presented in the vertical direction producing very good results of beam size FWHM. However, the intensity in horizontal is closer to the toroid than the diaboloid, with a shape that looks more Lorentzian than Gaussian (higher tails). In vertical the parabolic-cone produces a very clean spot, but not as good as the diaboloid. 
 
 
@@ -282,7 +281,7 @@ Image produced by the beamline for two high demagnification values: 1:5 (row 1, 
 \end{figure}
 
 
-To study in more detail the aberrations, ray-tracing calculations are performed scanning the magnification factor and extracting the focal dimensions. For each ray-tracing simulation this focal dimension is calculated in two ways: i) the FWHM of the intensity distribution (as discussed previously), and ii) the standard deviation $\sigma$ of the ray coordinates contributing to the focal image. The purpose is to evaluate the aberrations by comparing the FWHM with $\sigma$. If the intensity distribution is Gaussian, we will obtain a $\sigma$ smaller than the FWHM by a factor 2.35. However, when aberrations are present the long tails make that the $\sigma$ increases rapidly becoming even greater than the FWHM value. If this happens it is an indicator of high aberrations.  
+To study in more detail the aberrations, ray tracing calculations are performed scanning the magnification factor and extracting the focal dimensions. For each ray tracing simulation this focal dimension is calculated in two ways: i) the FWHM of the intensity distribution (as discussed previously), and ii) the standard deviation $\sigma$ of the ray coordinates contributing to the focal image. The purpose is to evaluate the aberrations by comparing the FWHM with $\sigma$. If the intensity distribution is Gaussian, we will obtain a $\sigma$ smaller than the FWHM by a factor 2.35. However, when aberrations are present the long tails make that the $\sigma$ increases rapidly becoming even greater than the FWHM value. If this happens it is an indicator of high aberrations.  
 
 \begin{figure}\label{fig:scan}
 \flushleft
@@ -302,7 +301,7 @@ Evolution of the (horizontal and vertical) focal size (measured in FWHM and $\si
 \end{figure}
 
 
-Fig.~\ref{fig:scan} shows the results of ray-tracing calculations of the focal size versus magnification M. Because the size is proportional to the magnification (in the ideal case of zero aberrations), we have visualized the focal size (in FWHM or $\sigma$ for horizontal and vertical directions) divided by the magnification in order to obtain an constant value in the ideal case of zero aberrations. Looking at the response of the toroidal mirror we can identify large aberrations for most cases (the $\sigma$ values are higher than the FWHM) and there is an optimum value around M=0.5 where the vertical size is minimum. This is the "working condition" of most beamlines using toroids at ALS as the aberrations are minimized \cite{MacDowell2004}. For the diaboloid (Fig~\ref{fig:scan}b) the situation is completely different. For most of cases (M$>$0.2) the lines are almost constant and the $\sigma$'s smaller than the FWHM by a value approaching 2.35, indicating that the diaboloid behaves as a perfect optics. 
+Fig.~\ref{fig:scan} shows the results of ray tracing calculations of the focal size versus magnification M. Because the size is proportional to the magnification (in the ideal case of zero aberrations), we have visualized the focal size (in FWHM or $\sigma$ for horizontal and vertical directions) divided by the magnification in order to obtain an constant value in the ideal case of zero aberrations. Looking at the response of the toroidal mirror we can identify large aberrations for most cases (the $\sigma$ values are higher than the FWHM) and there is an optimum value around M=0.5 where the vertical size is minimum. This is the "working condition" of most beamlines using toroids at ALS as the aberrations are minimized \cite{MacDowell2004}. For the diaboloid (Fig~\ref{fig:scan}b) the situation is completely different. For most of cases (M$>$0.2) the lines are almost constant and the $\sigma$'s smaller than the FWHM by a value approaching 2.35, indicating that the diaboloid behaves as a perfect optics. 
 %For the parabolic-cone (Fig~\ref{fig:scan}c) the situation is very close to the diaboloid when looking at the FWHM values down to the minimum M. When the values of $\sigma$ are higher than FWHM there is presence of residual aberrations. This is true for the horizontal focus, an effect already observed in the previous section, and it is less important for the vertical direction: only for M$<$0.3 the $\sigma$ becomes higher that the FWHM.  
 
 
@@ -378,7 +377,7 @@ Height difference between the diaboloid and the toroid for different magnificati
 
 
 
-We apply this analysis to the case of the beamline 12.2.2 studied before. For the upgraded ALS-U storage ring, the beamline produced a spot size of 15 $\times$ 57 $\mu$m$^2$ (H $\times$ V) with a toroidal mirror in M2, and this would become 10 $\times$ 18 $\mu$m$^2$ with a diaboloid. As the situation is close to the 2:1 demagnification and the incidence angle is 2 mrad, this is an interesting case for upgrading the mirror to an approximated diaboloid. Fig.~\ref{fig:detrendedBeamline}a show the diaboloid profile with a toroid detrended. 
+We apply this analysis to the case of the beamline 12.2.2 studied before. For the upgraded ALS-U storage ring, the beamline produced a spot size of 14 $\times$ 42 $\mu$m$^2$ (H $\times$ V) with a toroidal mirror in M2 (Fig.~\ref{fig:als}a$_2$), and this would become 10 $\times$ 18 $\mu$m$^2$ with a diaboloid (Fig.~\ref{fig:als}b$_2$). As the situation is close to the 2:1 demagnification and the incidence angle is 2 mrad, this is an interesting case for upgrading the mirror to an approximated diaboloid. Fig.~\ref{fig:detrendedBeamline}a show the diaboloid profile with a toroid detrended. 
 
 
 \begin{figure}\label{fig:detrendedBeamline}
@@ -389,7 +388,6 @@ a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
 \includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_image.png} 
 \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_image.png} 
 
-
 \includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_profile.png}
 \includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_profile.png}
 \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_profile.png}
@@ -398,11 +396,6 @@ a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
 a) Diaboloid, b) cone (Eq.~\ref{eq:sagRadius}). c) Elliptical cylinder bent to a parabola. The detrended toroid major radius is R=8.075 Km and the minor radius is  r=22.595 mm.
 }
 \end{figure}
-
-
-
-
-
 
 Two approximated solutions are studied by ray tracing. First, using a substrate with a circular sagittal section with radius that linearly changes along the $Y$ (tangential) direction Fig.~\ref{fig:detrendedBeamline}b as indicated in Eq.~\ref{eq:sagRadius} (cone). The second one, more precise at a first view, would consist in pre-shaping a cylinder with elliptical (sagittal) section that is the exact sagittal profile at $Y$=0 (Fig.~\ref{fig:detrendedBeamline}c).  This cylinder with elliptical section could be envisaged to be manufactured with sufficient accuracy. 
 
