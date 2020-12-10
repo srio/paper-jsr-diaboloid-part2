@@ -10,7 +10,6 @@
 \usepackage{color}
 \usepackage{soul}
 \usepackage{nopageno}
-\usepackage{tikz}
 %%
 
 \begin{document}  
@@ -18,11 +17,18 @@
 \thispagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  put here figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\begin{figure}\label{fig:finalcomparison}
+\flushleft
+a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
+\centering
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1.png} 
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_linearized.png}\\
 
-\begin{figure}\label{fig:frame}
-\input{fig1code.tex}
-
+\flushleft
+c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
+\centering
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx2.png} 
+\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_exact1over2.png} 
 
 \end{figure}
 

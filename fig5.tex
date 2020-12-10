@@ -10,7 +10,6 @@
 \usepackage{color}
 \usepackage{soul}
 \usepackage{nopageno}
-\usepackage{tikz}
 %%
 
 \begin{document}  
@@ -18,11 +17,20 @@
 \thispagestyle{empty}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  put here figure %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
-\begin{figure}\label{fig:frame}
-\input{fig1code.tex}
+\begin{figure}\label{fig:demagnification}
+\flushleft
+~~~~~a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$) \\
+\centering
+\includegraphics[width=0.45\textwidth]{figures/M0p2_toroid.png}
+\includegraphics[width=0.45\textwidth]{figures/M0p2_diaboloid.png} \\
 
+\flushleft
+~~~~~a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$) \\
+\centering
+
+\includegraphics[width=0.45\textwidth]{figures/M0p1_toroid.png}
+\includegraphics[width=0.45\textwidth]{figures/M0p1_diaboloid.png}
 
 \end{figure}
 
