@@ -100,11 +100,11 @@ We created a tool in the Oasys environment \cite{codeOASYS} that implements nume
 For practical purposes we want to define the diaboloid surface as a function of the focal distances $p,q$ ($p$ is the source-mirror distance, $q$ is the mirror-image distance) and the grazing incidence angle is $\theta$. The diaboloid can be placed in two configurations: i) ``collimating'' to convert a spherical wave into a cylindrical wave (geometrically a point-to-segment focusing, and ii) ``focusing'' to convert a cylindrical wave into a spherical one (or segment-to-point focusing). The latter (Fig.~\ref{fig:frame}) is the usual configuration in synchrotron beamlines, where the main purpose is to refocus a beam that is collimated in the vertical direction and divergent in the horizontal. 
 
 
-\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+%\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{figure}\label{fig:frame}
-\input{fig1code.tex}
-
+\includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
+%\input{fig1code.tex}
 
 \caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of Eq.~\ref{eqn:diaboloidV}. \todo{A 3D VIEW AND MAY BE A SAGITTAL SECTION COULD BE ADDED}}
 \end{figure}
@@ -191,25 +191,26 @@ M2 refocuses the source to the focus from infinity in the vertical direction and
 
 
 \begin{figure}\label{fig:als}
-\flushleft
-~~~~~a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$) \\
-\centering
-\includegraphics[width=0.45\textwidth]{figures/als_toroid.png}
-\includegraphics[width=0.45\textwidth]{figures/als_diaboloid.png} \\
-
-\flushleft
-~~~~~a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$) \\
-\centering
-
-\includegraphics[width=0.45\textwidth]{figures/alsu_toroid.png}
-\includegraphics[width=0.45\textwidth]{figures/alsu_diaboloid.png} \\
-
-\flushleft
-~~~~~a$_3$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_3$) \\
-\centering
-
-\includegraphics[width=0.45\textwidth]{figures/bl_point_toroid.png} 
-\includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
+\includegraphics[width=0.95\textwidth]{figures/fig4.pdf}
+% \flushleft
+% ~~~~~a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$) \\
+% \centering
+% \includegraphics[width=0.45\textwidth]{figures/als_toroid.png}
+% \includegraphics[width=0.45\textwidth]{figures/als_diaboloid.png} \\
+% 
+% \flushleft
+% ~~~~~a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$) \\
+% \centering
+% 
+% \includegraphics[width=0.45\textwidth]{figures/alsu_toroid.png}
+% \includegraphics[width=0.45\textwidth]{figures/alsu_diaboloid.png} \\
+% 
+% \flushleft
+% ~~~~~a$_3$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_3$) \\
+% \centering
+% 
+% \includegraphics[width=0.45\textwidth]{figures/bl_point_toroid.png} 
+% \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
 \caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The width values (FWHM) of the intensity distributions are written in the graphic titles. The images contrast is set to logarithmic scale for better visibility. \todo{REMOVE ROW 3?}
 }
 \end{figure}
@@ -226,18 +227,19 @@ In this section we study a possible upgrade of the beamline to obtain a smaller 
 
 
 \begin{figure}\label{fig:demagnification}
-\flushleft
-~~~~~a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$) \\
-\centering
-\includegraphics[width=0.45\textwidth]{figures/M0p2_toroid.png}
-\includegraphics[width=0.45\textwidth]{figures/M0p2_diaboloid.png} \\
-
-\flushleft
-~~~~~a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$) \\
-\centering
-
-\includegraphics[width=0.45\textwidth]{figures/M0p1_toroid.png}
-\includegraphics[width=0.45\textwidth]{figures/M0p1_diaboloid.png}
+\includegraphics[width=1.0\textwidth]{figures/fig5.pdf}
+% \flushleft
+% ~~~~~a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$) \\
+% \centering
+% \includegraphics[width=0.45\textwidth]{figures/M0p2_toroid.png}
+% \includegraphics[width=0.45\textwidth]{figures/M0p2_diaboloid.png} \\
+% 
+% \flushleft
+% ~~~~~a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$) \\
+% \centering
+% 
+% \includegraphics[width=0.45\textwidth]{figures/M0p1_toroid.png}
+% \includegraphics[width=0.45\textwidth]{figures/M0p1_diaboloid.png}
 \caption{
 Image produced by the beamline for two high demagnification values: 1:5 (row 1, top) and 1:10 (row 2, bottom) using for M2 a) toroid, and b) diaboloid.}
 \end{figure}
@@ -276,24 +278,25 @@ At the magic 2:1 demagnification condition, for a 2 mrad grazing angle as used i
 
 
 \begin{figure}\label{fig:detrended}
-\flushleft
-a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c$_1$)\\
-\centering
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:5_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:2_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:1_image.png} \\
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:5_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:2_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:1_profile.png} \\
-\flushleft
-a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c$_2$)\\
-\centering
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:5_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:2_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:1_image.png} \\
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:5_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:2_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:1_profile.png}
+\includegraphics[width=1.0\textwidth]{figures/fig7.pdf}
+% \flushleft
+% a$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_1$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c$_1$)\\
+% \centering
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:5_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:2_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:1_image.png} \\
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:5_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:2_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_1:1_profile.png} \\
+% \flushleft
+% a$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b$_2$)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c$_2$)\\
+% \centering
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:5_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:2_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:1_image.png} \\
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:5_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:2_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_detrended_5mrad_1:1_profile.png}
 
 \caption{
 Height difference between the diaboloid and the toroid for different magnifications a) 1:5, b) 1:2, c) 1:1. In the simulations $p$=20 m and grazing angle is 2 mrad (row 1) or 5 mrad (row 2). The detrended toroid major radii are R$_{a)}$=4 Km, R$_{b)}$=10 Km, R$_{c)}$=20 Km and minor radii r$_{a)}$=13.3 mm, r$_{b)}$=26.7 mm, r$_{c)}$=40 mm for row 1 and R$_{a)}$=1.6 Km, R$_{b)}$=4 Km, R$_{c)}$=8 Km and minor radii r$_{a)}$=33.3 mm, r$_{b)}$=66.6 mm, r$_{c)}$=100 mm for row 2.
@@ -304,16 +307,17 @@ Height difference between the diaboloid and the toroid for different magnificati
 We apply this analysis to the case of the beamline 12.2.2 studied before. For the upgraded ALS-U storage ring, the beamline produced a spot size of 14 $\times$ 42 $\mu$m$^2$ (H $\times$ V) with a toroidal mirror in M2 (Fig.~\ref{fig:als}a$_2$), and this would become 10 $\times$ 18 $\mu$m$^2$ with a diaboloid (Fig.~\ref{fig:als}b$_2$). As the situation is close to the 2:1 demagnification and the incidence angle is 2 mrad, this is an interesting case for upgrading the mirror to an approximated diaboloid. Fig.~\ref{fig:detrendedBeamline}a show the diaboloid profile with a toroid detrended. 
 
 \begin{figure}\label{fig:detrendedBeamline}
-\flushleft
-a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
-\centering
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_image.png} 
-\includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_image.png} 
-
-\includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_profile.png}
-\includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_profile.png}
+\includegraphics[width=1.0\textwidth]{figures/fig8.pdf}
+% \flushleft
+% a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~c)\\
+% \centering
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_image.png} 
+% \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_image.png} 
+% 
+% \includegraphics[width=0.32\textwidth]{figures/diaboloid_bl1222_detrended_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/linearizedparaboliccone_bl1222_detrended_profile.png}
+% \includegraphics[width=0.32\textwidth]{figures/ellipticalcylinder_bl1222_detrended_profile.png}
 
 \caption{Surface shapes for BL 12.2.2 with a toroid detrended and selected sagittal profiles.
 a) Diaboloid, b) cone (Eq.~\ref{eq:sagRadius}). c) Elliptical cylinder bent to a parabola. The detrended toroid major radius is R=8.075 Km and the minor radius is  r=22.595 mm.
@@ -331,17 +335,18 @@ In conclusion, \inred{the approximation of the diaboloid by a simple circular cy
 
 
 \begin{figure}\label{fig:finalcomparison}
-\flushleft
-a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
-\centering
-\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1.png} 
-\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_linearized.png}\\
-
-\flushleft
-c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
-\centering
-\includegraphics[width=0.49\textwidth]{figures/prefinal_approx2.png} 
-\includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_exact1over2.png} 
+\includegraphics[width=1.0\textwidth]{figures/fig9.pdf}
+% \flushleft
+% a)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~b)\\
+% \centering
+% \includegraphics[width=0.49\textwidth]{figures/prefinal_approx1.png} 
+% \includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_linearized.png}\\
+% 
+% \flushleft
+% c)~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~d)\\
+% \centering
+% \includegraphics[width=0.49\textwidth]{figures/prefinal_approx2.png} 
+% \includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_exact1over2.png} 
 
 
 \caption{ Image produced by bl 12.2.2 with: 
@@ -365,6 +370,7 @@ The diaboloid is a new optical surface that focuses light from infinity to a poi
 
      % Acknowledgements come after the appendices
 
+\vspace{5mm}
 \section{Acknowledgements}       
  
  
@@ -375,7 +381,7 @@ This work was supported by the Director, Office of Science, Office of Basic Ener
 \section{The explicit form of the diaboloid }
 \label{appendix:diaboloid}
 
-Using the schematic view in Fig.~\ref{fig:frame}, the distance from source $(0,-p,0)$ to image $(0,q \cos2\theta, q \sin2\theta)$ passing through the mirror pole $(0,0,0)$ is $p+q$. This distance must be the same when passing trough any point $(x,y,z)$ of the mirror surface (Fermat principle),
+Using the schematic view in Fig.~\ref{fig:frame}, the distance from source $(0,-p,0)$ to image $(0,q \cos2\theta, q \sin2\theta)$ passing through the mirror pole $(0,0,0)$ is $p+q$. This distance must be the same when passing through any point $(x,y,z)$ of the mirror surface (Fermat principle),
 
 % https://www.wolframalpha.com/input/?i=Solve%5Bsqrt%28x%5E2%2B%28y%2Bp%29%5E2%29+%2B+sqrt%28x%5E2%2B%28q+cos%282t%29-y%29%5E2+%2B+%28q+sin%282t%29-z%29%5E2%29-%28p%2Bq%29%3D0%3Bz%5D
 \begin{multline}
@@ -393,9 +399,9 @@ z = q \sin2\theta -
 \end{multline}
 which is the same as Eq.~\ref{eqn:diaboloidV}. 
 
-The tangential section is a parabola. The equation of the parabola with axis os symmetry parallel to the $y$ axis (Fig.~\ref{fig:frame}) can be written (see e.g., {\tt https://en.wikipedia.org/wiki/Parabola}) $y = z^2/(4 f) - v_z/(2 f) z + (v_z^2/(4 f)+ v_y)$ with $f$ the focal distance and $(v_y,v_z)$ the vertex. Developing Eq.~\ref{eqn:explicit} and equaling coefficients we obtain $f=(1+\cos2\theta)q/2$, $v_z=q \sin2\theta$ and \todo{$v_y=$}.
+The tangential section is a parabola. The equation of the parabola with axis os symmetry parallel to the $y$ axis (Fig.~\ref{fig:frame}) can be written (see e.g., {\tt https://en.wikipedia.org/wiki/Parabola}) $y = z^2/(4 f) - v_z/(2 f) z + (v_z^2/(4 f)+ v_y)$ with $f$ the focal distance and $(v_y,v_z)$ the vertex. Developing Eq.~\ref{eqn:explicit} and equaling coefficients we obtain $f=(1+\cos2\theta)q/2$, $v_z=q \sin2\theta$ and $v_y=f+q\cos2\theta$.
 
-The sagittal section is an exact ellipse in the rotated reference frame $X,Y,Z$ in Fig.~\ref{fig:frame}. But, in the used $(x,y,z)$ frame, making $y=0$ we obtain from Eq.~\ref{eqn:explicit}
+The sagittal section is approximately an ellipse. For $y=0$ in Eq.~\ref{eqn:explicit} we get
 
 \begin{multline}
 \label{eqn:explicit}
