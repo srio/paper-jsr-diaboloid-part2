@@ -26,6 +26,7 @@
 % \usepackage{siunitx}
 \usepackage[hyphens,spaces,obeyspaces]{url}
 \usepackage{color}
+\usepackage{cprotect}
 
 
 \newcommand{\todo}[1]{{\color{red}[TODO: "#1'']}}
@@ -106,12 +107,12 @@ For practical purposes we want to define the diaboloid surface as a function of 
 \includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
 %\input{fig1code.tex}
 
-\caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of Eq.~\ref{eqn:diaboloidV}. \todo{A 3D VIEW AND MAY BE A SAGITTAL SECTION COULD BE ADDED}}
+\caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of Eq.~\ref{eqn:diaboloidV}. }
 \end{figure}
 
 
 
-The equation of the diaboloid in the ``collimating'' configuration is deduced in \ref{appendix:diaboloid}
+The equation of the diaboloid in the ``collimating'' configuration is (Appendix \ref{appendix:diaboloid})
 
 \begin{multline}
 \label{eqn:diaboloidV}
@@ -121,7 +122,7 @@ z(x,y) = q \sin2\theta -
 2 (p+q)  \sqrt{x^2 + (y + p)^2}) 
 ]^{1/2}.
 \end{multline}
-The mirror height is $z$=0 at the mirror center position $x, y$=0, as expected. The tangential profile ($x$=0) is a parabola $y=a + z^2/(4f)$ with  $a=(1+\cos2\theta)q/2$, and focal length $ f = -q (1-\cos2\theta) /2$. For small angles ($\cos2\theta\approx 1 - 2\theta^2$) and $|y|\ll q$ gives $z\approx 2 \theta q + \theta y$ with slope in the center $dz/dy=\theta$. The sagittal section ($y$=0) is an ellipse $x^2/a^2 + (z - q \sin2\theta)^2/b^2=1$ with semiaxes $b=q \sin2\theta$ and $a=b \sqrt{q /(p+q)}$. 
+The mirror height is $z$=0 at the mirror center position $x, y$=0, as expected. The tangential profile ($x$=0) is a parabola with focal length $ f = (1-\cos2\theta) q/2$. For small angles ($\cos2\theta\approx 1 - 2\theta^2$) and $|y|\ll q$ gives $z\approx 2 \theta q + \theta y$ with slope in the center $dz/dy=\theta$. The sagittal section ($y$=0) is an ellipse with semiaxes $b=q \sin2\theta$ and $a=b \sqrt{q /(p+q)}$ (see Appendix \ref{appendix:diaboloid}). 
 
 For ray tracing calculations it is convinient to obtain the numerical mesh as a function of a mirror-related coordinate system ($X,Y,Z$) (Fig.~\ref{fig:frame}), with origin in the center of the mirror, one axis ($Y$) tangent to the diaboloid surface origin in the direction of the beam propagation, another axis ($X$) tangent to the diaboloid surface origin in the direction perpendicular of the beam propagation, and the third axis ($Z$) is outward pointing perpendicular to $X$ and $Y$. 
 In most practical cases the grazing incidence $\theta$ is small, therefore Eq.~\ref{eqn:diaboloidV} can be expressed in the $X,Y,Z$ frame by forcing zero slope at the origin (i.e., detrending the plane $z_{plane}=y \theta$). This is done numerically after evaluating the surface using Eq.~\ref{eqn:diaboloidV}. 
@@ -211,7 +212,7 @@ M2 refocuses the source to the focus from infinity in the vertical direction and
 % 
 % \includegraphics[width=0.45\textwidth]{figures/bl_point_toroid.png} 
 % \includegraphics[width=0.45\textwidth]{figures/bl_point_diaboloid-exact.png}  \\
-\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The width values (FWHM) of the intensity distributions are written in the graphic titles. The images contrast is set to logarithmic scale for better visibility. \todo{REMOVE ROW 3?}
+\caption{Focal image produced by a system of two mirrors M1 (collimating parabola) and M2 represented by a a) toroid, b) diaboloid. Row 1 displays the plots for a bending magnet source in the current ALS storage ring. Row 2 is for the upgraded ALS-U ring, and in Row 3 a point source was used. The width values (FWHM) of the intensity distributions are written in the graphic titles. The images contrast is set to logarithmic scale for better visibility.
 }
 \end{figure}
 
@@ -331,7 +332,7 @@ The spot size produced by the diaboloid is 10 $\times$ 18 $\mu$m$^2$ (Fig.~\ref{
 We check now the beamline in a perfect 1:2 configuration, by setting $q$=9.4 m. In this configuration the diaboloid gives 12 $\times$ 22 $\mu$m$^2$ (not shown), 13 $\times$ 26 $\mu$m$^2$ for the cone and for the circular cylinder (Fig.~\ref{fig:finalcomparison}d), as expected because for 1:2 magnification the cone degenerates in a cylinder. The result for the elliptical cylinder is similar (not shown), demonstrating that there is not much benefit in this case to shape the cylinder with a more complicated elliptical section.   
 
 
-In conclusion, \inred{the approximation of the diaboloid by a simple circular cylinder bent to a parabola works well at exact 2:1 demagnification. However at even small deviations from the 2:1 condition like in the present bl 12.2.2 case, the approximation of the diaboloid by a cone has to be used to eliminate the asymmetric aberration tail in tangential direction. For other magnifications the exact diaboloid should be used.}
+In conclusion, the approximation of the diaboloid by a simple circular cylinder bent to a parabola works well at exact 2:1 demagnification. However at even small deviations from the 2:1 condition like in the present bl 12.2.2 case, the approximation of the diaboloid by a cone has to be used to eliminate the asymmetric aberration tail in tangential direction. For other magnifications the exact diaboloid should be used.
 
 
 \begin{figure}\label{fig:finalcomparison}
@@ -390,7 +391,7 @@ p + q =
 \sqrt{x^2 + (y + p)^2)} + \\
 \sqrt{x^2 + (q \cos2 \theta - y)^2 + (q \sin2 \theta - z)^2}.
 \end{multline}
-After simple algebraic manipulation done using e.g., {\tt https://www.wolframalpha.com} we to get the mirror height $z$,
+After simple algebraic manipulation (we can use e.g., {\tt https://www.wolframalpha.com} we to get the mirror height $z$,
 \begin{multline}
 \label{eqn:explicit}
 z = q \sin2\theta - 
@@ -399,12 +400,12 @@ z = q \sin2\theta -
 \end{multline}
 which is the same as Eq.~\ref{eqn:diaboloidV}. 
 
-The tangential section is a parabola. The equation of the parabola with axis os symmetry parallel to the $y$ axis (Fig.~\ref{fig:frame}) can be written (see e.g., {\tt https://en.wikipedia.org/wiki/Parabola}) $y = z^2/(4 f) - v_z/(2 f) z + (v_z^2/(4 f)+ v_y)$ with $f$ the focal distance and $(v_y,v_z)$ the vertex. Developing Eq.~\ref{eqn:explicit} and equaling coefficients we obtain $f=(1+\cos2\theta)q/2$, $v_z=q \sin2\theta$ and $v_y=f+q\cos2\theta$.
+The tangential section is a parabola. The equation of the parabola with axis of symmetry parallel to the $y$ axis (Fig.~\ref{fig:frame}) can be written (see e.g., {\tt https://en.wikipedia.org/wiki/Parabola} with downward opening) $y = -z^2/(4 f) + v_z/(2 f) z - (v_z^2/(4 f)+ v_y)$ with $f$ the focal distance and $(v_y,v_z)$ the vertex. Developing Eq.~\ref{eqn:distances} for $x=0$ and equaling coefficients we obtain $f=(1-\cos2\theta)q/2$, $v_z=q \sin2\theta$ and $v_y=f+q\cos2\theta$.
 
 The sagittal section is approximately an ellipse. For $y=0$ in Eq.~\ref{eqn:explicit} we get
 
 \begin{multline}
-\label{eqn:explicit}
+\label{eqn:ellipse}
 (z - q \sin2\theta)^2 = \\
 -2 (p + q) \sqrt{p^2 + x^2}+ 
 2 p^2 +2  p q + q^2 \sin^2 2 \theta.
