@@ -19,5 +19,4 @@ sleep 1.0
 pdflatex Diaboloid.tex
 pdflatex Diaboloid.tex
 
-okular Diaboloid.pdf
-
+#okular Diaboloid.pdf
