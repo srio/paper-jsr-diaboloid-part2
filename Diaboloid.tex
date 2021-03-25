@@ -80,6 +80,7 @@ The diaboloid mirror is a surface that converts a spherical wave to a cylindrica
 
 \begin{abstract}
 The diaboloid is a reflecting surface that converts a spherical wave to a cylindrical wave. This complex surface may find application in new Advanced Light Source bending magnet beamlines or in other beamlines that now use toroidal optics for astigmatic focusing. We describe here the numerical implementation of the diaboloid mirrors and study by ray tracing the benefit of this mirror in beamlines exploiting diffraction-limited storage rings.
+\inred{The use of diaboloids becomes especially interesting for the new low-emittance storage rings because for such small sources the reduction of aberration becomes essential. The validity of the toroidal and other mirror surfaces approximating the diaboloid, and the effect of the mirror magnification are discussed.}
 \end{abstract}
 
 \section{Introduction}
@@ -91,11 +92,9 @@ Now, with the advent of 4\textsuperscript{th} generation multi-bend achromat (MB
 With undulator sources and their narrow divergence angles, we have the luxury of using only tangentially curved optics for focusing in both horizontal and vertical planes. However for bending magnet sources, with their wide horizontal fan, to collect a reasonable aperture, we have to use sagittaly curved optics. This could be as in a crystal monochromator with a sagittaly curved 2\textsuperscript{nd} crystal, or with a sagitally focusing cylindrical or toroidal mirror.
 
 At the Advanced Light Source (ALS), we adopted toroidal mirrors for protein crystallography beamlines, due to the robustness of the optical system. We found that a specific configuration \inred{with two mirrors and a monochromator in between, all deflecting  the vertical plane,} could preserve brightness and eliminate coma aberrations. 
-A tangentially collimating pre-mirror \inred{assures negigible vertical divergence at the monochromator entrance,} and a toroidal mirror downstream of the crystal monochromator \inred{refocuses the beam at the sample position.} The optimal design focuses from infinity in the vertical direction and from the real source in the horizontal direction with a 1:2 magnification.
+A tangentially collimating pre-mirror \inred{assures negigible vertical divergence at the monochromator entrance, thus optimizing its energy resolution,} and a toroidal mirror downstream of the crystal monochromator \inred{refocuses the beam at the sample position.} The optimal design focuses from infinity in the vertical direction and from the real source in the horizontal direction with a 1:2 magnification.
 
-This arrangement was used in ALS \emph{superbend} beamlines, as originally described by MacDowell \cite{MacDowell2004}. At the time, the horizontal source size was \SI{100}{\micro\meter} root mean square (rms) and the residual aberrations in the image produced by a toroidal mirror were far less. Following an upgrade of the ALS in 2013, the horizontal photon beam size was reduced \cite{Steier_2014} to
-%\inred{\sout{40}} 
-\SI{26}{\micro\meter} rms . The residual aberrations were tolerable, but cause a factor of 2 decrease in brightness. The ALS upgrade project, now in progress, will reduce the horizontal beam size to
+This arrangement was used in ALS \emph{superbend} beamlines, as originally described by MacDowell \cite{MacDowell2004}. At the time, the horizontal source size was \SI{100}{\micro\meter} root mean square (rms) and the residual aberrations in the image produced by a toroidal mirror were far less. Following an upgrade of the ALS in 2013, the horizontal photon beam size was reduced \cite{Steier_2014} to \SI{26}{\micro\meter} rms. The residual aberrations were tolerable, but cause a factor of two decrease in brightness. The ALS upgrade project, now in progress, will reduce the horizontal beam size to
 % \inred{\sout{7}}
 \SI{10}{\micro\meter} rms. At this size, the residual aberrations of optical systems based on toroids will no longer be acceptable, and new types of brightness-preserving optics are required.
 
@@ -107,7 +106,7 @@ Such a surface was first described by McKinney \cite{McKinneySPIE2009} and named
 
 Although the idea is to replace the toroidal mirrors in ALS protein crystallography, superbend beamlines with this new type of mirror, the application goes further than this: the diaboloid allows us to demagnify more strongly than before. One such example is in a high-pressure-science beamline currently using a 1:2 magnification toroidal mirror, further demagnified to a few-micron focus using a Kirkpatrick-Baez (K-B) mirror pair \cite{Kirkpatrick1946}. In an updated, diaboloid-based optical system, the K-B mirrors become unnecessary and the single diaboloid mirror will focus directly to approximately \SI{3}{\micro\meter} spot size, increasing flux and image quality while decreasing complexity.
 
-It is important to note that until recently, the fabrication of such complex surfaces has not been been possible at the error levels that we require. For a typical application at the \inred{upgraded} ALS, the mirror-to-source distance is \SI{20}{\meter}\inred{, the mirror-to-sample is \SI{10}{\meter} (magnification 1:2)}, and so with a \SI{7}{\micro\meter} vertical source size \inred{(r.m.s)}, including angle doubling on reflection, the tangential slope error tolerance is \SI{0.17}{\micro\radian} \inred{r.m.s.}. The sagittal slope error tolerance is \SI{34}{\micro\radian} \inred{due to the forgiveness factor}. The tangential tolerance is extremely challenging, but mainly limited by metrology. Local area correction, and stitching-interferometer-based metrology have led to the creation of 1D curved optics with significantly smaller slope errors \cite{Yamauchi2002}. 
+It is important to note that until recently, the fabrication of such complex surfaces has not been been possible at the error levels that we require. For a typical application at the \inred{upgraded} ALS, the mirror-to-source distance is \SI{20}{\meter}\inred{, the mirror-to-sample is \SI{10}{\meter} (magnification 1:2)}, and so with a \SI{7}{\micro\meter} vertical source size \inred{rms}, including angle doubling on reflection, the tangential slope error tolerance is \SI{0.17}{\micro\radian} \inred{rms.}. The sagittal slope error tolerance is \SI{34}{\micro\radian} \inred{due to the forgiveness factor}. The tangential tolerance is extremely challenging, but mainly limited by metrology. Local area correction, and stitching-interferometer-based metrology have led to the creation of 1D curved optics with significantly smaller slope errors \cite{Yamauchi2002}. 
 %The problem is that current high accuracy metrology techniques cannot accommodate steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) reference beams, as now widely used in free form optics fabrication.
 A difficulty is the availability of high accuracy metrology to measure steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) \inred{\cite{Wyant, Poleshchuk}} reference beams, as now widely used in free form optics fabrication. Advances in fabrication and metrology make these optics feasible now.
 
@@ -147,19 +146,12 @@ For ray tracing calculations, it is convenient to obtain the numerical mesh as a
 
 % Seems that this could be a sub-section break?
 
-The simplest approximation of the diaboloid is the toroid, defined by circular cross-sections with meridional and sagittal radii at the origin, $R_m$ and $R_s$, respectively. These values are known from Coddington's equations for focusing mirrors:
+The simplest approximation of the diaboloid is the toroid, defined by circular cross-sections with \inred{tangential} and sagittal radii at the origin, $R_t$ and $R_s$, respectively. These values are known from Coddington's equations for focusing mirrors:
 \begin{equation}
 \label{eqn:radii}
-\frac{1}{p} = \frac{2 }{R_m \sin\theta };~~~~~~
+\frac{1}{p} = \frac{2 }{R_t \sin\theta };~~~~~~
 \frac{1}{p} + \frac{1}{q} = \frac{2\sin\theta}{ R_s}.
 \end{equation}
-
-% \begin{equation}
-% \label{eqn:Coddington}
-% R_m^C = \frac{2}{\sin\theta}\left(\frac{p q}{p+q}\right);~~~R_s^C = 2\sin\theta \left(\frac{p q}{p+q}\right).
-% \end{equation}
-
-% \noindent The quantity $f=pq/(p+q)$ serves as the focal length.
 
 A surface with a closer approximation to the diaboloid has a parabolic tangential profile along the sagittal centerline ($X$~=~0), and circular cross-sections with radii varying linearly with $Y$, in the sagittal direction \cite{val2021},
 \begin{multline}
@@ -169,7 +161,7 @@ R_s(Y)
 \frac{2p q \cos^2\theta \sin\theta }{p + q} - 
 \frac{\cos\theta \sin\theta (2 p \cos^2\theta - q)}{p + q} Y.
 \end{multline}
-The central sagittal radius $R_s(Y=0)=p q \sin\theta \cos^2\theta/ (p+q)$ is close to the radius given by the Coddington equation \ref{eqn:radii}, differing by a factor $\cos^2\theta$.
+The central sagittal radius $R_s(Y=0)=p q \sin\theta \cos^2\theta/ (p+q)$ is close to the radius given by the Coddington equation (\ref{eqn:radii}), differing by a factor $\cos^2\theta$.
 
 
 \subsection{Numerical implementation and testing}
@@ -198,7 +190,8 @@ To evaluate the accuracy of the calculations, we ray-traced an isolated diaboloi
 \caption{Comparison of images produced by two surfaces: horizontally focusing and vertically collimating. (\textbf{a}) Exact diaboloid implementation (solving quartic equation), and (\textbf{b}) approximated implementation (equation~(\ref{eqn:diaboloidV}) detrended with $z_\mathrm{plane}=\theta Y$). The calculated fwhm values are \SI{0.3}{\nano\meter}, and \SI{93}{\nano\meter}, respectively.}
 \end{figure}
 
-The expected result at the focal position is a line focus (segment) with zero horizontal width and a vertical length of $L\sin\theta$. Ray tracing focal images are shown in Fig.~\ref{fig:pointToSegment} for a diaboloid calculated with the two mentioned methods (exact solution and the detrended equation~(\ref{eqn:diaboloidV})). The intensity profile along the vertical direction has a non-uniform distribution due to the beam intensity projected on the mirror surface with a grazing angle. Both numerical surfaces produce a narrow horizontal focus without aberration tails. However, some residual width is observed in the calculation: \SI{0.3}{\nano\meter} for the exact diaboloid equation and \SI{93}{\nano\meter} for the approximated one. The \SI{0.3}{\nano\meter} residual arises from the finite precision and from SHADOW's use of iterative algorithms to find ray intercepts.
+The expected result at the focal position is a line focus (segment) with zero horizontal width and a vertical length of $L\sin\theta$. Ray tracing focal images are shown in Fig.~\ref{fig:pointToSegment} for a diaboloid calculated with the two mentioned methods (exact solution and the detrended equation~(\ref{eqn:diaboloidV})). The intensity profile along the vertical direction has a non-uniform distribution due to the beam intensity projected on the mirror surface with a grazing angle.
+\inred{This vertical intensity profile is invariant when the beam is propagated tens of meters downstream from the image position, thus verifying the good collimation of the beam in the vertical plane.} Both numerical surfaces produce a narrow horizontal focus without aberration tails. However, some residual width is observed in the calculation: \SI{0.3}{\nano\meter} for the exact diaboloid equation and \SI{93}{\nano\meter} for the approximated one. The \SI{0.3}{\nano\meter} residual arises from the finite precision and from SHADOW's use of iterative algorithms to find ray intercepts.
 The approximate diaboloid's \SI{93}{\nano\meter} residual comes from the linear detrending of the basal plane, replacing an exact rotation. We believe that this accuracy is sufficient for all current, practical implementations, owing to the finite source sizes of \SI{10}{\micro\meter} to \SI{50}{\micro\meter}. The approximate solution gives us an intuitive and simple direct way to numerically evaluate and visualize the surface.
 
 \section{Ray tracing the ALS beamline 12.2.2}
@@ -363,7 +356,7 @@ In conclusion, the approximation of the diaboloid by a simple circular cylinder 
 % \includegraphics[width=0.49\textwidth]{figures/prefinal_approx1_exact1over2.png} 
 
 
-\caption{Calculated focal spots produced by ALS Beamline 12.2.2 with the diaboloid approximated by four surfaces: (\textbf{a}) a cone (circular section) bent to a parabola, (\textbf{b}) a cylinder (circular section) bent to a parabola in the tangential direction, (\textbf{c}) a cylinder (elliptical section) bent to a parabola, and (\textbf{d}) like (\textbf{b}) but in the exact 1:2 configuration ($M$~= $q$:$p$ = 9.4:18.8).}
+\caption{Calculated focal spots produced by ALS Beamline 12.2.2 with the diaboloid approximated by four surfaces: (\textbf{a}) a cone (\inred{sagittal linearly varying} circular section) bent to a parabola \inred{in the tangential direction}, (\textbf{b}) a cylinder (\inred{ sagittal uniform} circular section) bent to a parabola in the tangential direction, (\textbf{c}) a cylinder (\inred{sagittal uniform} elliptical section) bent to a parabola \inred{in the tangential direction}, and (\textbf{d}) like (\textbf{b}) but in the exact 1:2 configuration ($M$~= $q$:$p$ = 9.4:18.8).}
 \end{figure}
 
 \section{Summary}
@@ -375,7 +368,7 @@ The diaboloid provides aberration-free focusing and will be useful in all cases 
 %devolves to parabolic curvature in the tangential direction and elliptical curvature in the sagittal direction.
 For \SI{5}{\milli\radian} grazing angles, and typical beamline parameters, the deviation of the surface from toroidal is below \SI{2}{\micro\meter}, a thickness at which sputtering can be used to deposit a thin, spatially-graded, correcting layer. Additionally, at the 1:2 magnification condition, the parabolic tangential shape could be created by bending, and the unbent mirror would have elliptical or circular sagittal cross-sections. This opens up possibilities for normal-incidence optical interferometry.
 
-As fabrication and metrology improve, diaboloids can be used to produce aberration-free focusing under any magnification, exceeding the performance of toroids and offering the possibility of improving the  and complexity of beamlines by eliminating the need for additional demagnifying elements. 
+As fabrication and metrology improve, diaboloids can be used to produce aberration-free focusing under any magnification, exceeding the performance of toroids and offering the possibility of \inred{simplifying the} beamlines by eliminating the need for additional demagnifying elements. 
 
 
    %-------------------------------------------------------------------------
