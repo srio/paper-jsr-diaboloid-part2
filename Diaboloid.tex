@@ -6,6 +6,22 @@
 %------------------------------------------------------------------------------
 
 \documentclass[preprint]{iucr}       % DO NOT DELETE % 
+
+   %-------------------------------------------------------------------------
+   % Infobrmation about journal to which submitted
+   %-------------------------------------------------------------------------
+   \journalcode{S}       % Indicate the journal to which submitted
+                 %  A - Acta Crystallographica Section A
+                 %  B - Acta Crystallographica Section B
+                 %  C - Acta Crystallographica Section C
+                 %  D - Acta Crystallographica Section D
+                 %  E - Acta Crystallographica Section E
+                 %  F - Acta Crystallographica Section F
+                 %  J - Journal of Applied Crystallography
+                 %  M - IUCrJ
+                 %  S - Journal of Synchrotron Radiation
+                 
+                 
 \usepackage{bm}
 % \usepackage{graphicx}
 % \usepackage{tabularx}
@@ -37,20 +53,6 @@
 \newcommand{\ingreen}[1]{{\color{green}#1}}
 
 
-
-   %-------------------------------------------------------------------------
-   % Infobrmation about journal to which submitted
-   %-------------------------------------------------------------------------
-   \journalcode{S}       % Indicate the journal to which submitted
-                 %  A - Acta Crystallographica Section A
-                 %  B - Acta Crystallographica Section B
-                 %  C - Acta Crystallographica Section C
-                 %  D - Acta Crystallographica Section D
-                 %  E - Acta Crystallographica Section E
-                 %  F - Acta Crystallographica Section F
-                 %  J - Journal of Applied Crystallography
-                 %  M - IUCrJ
-                 %  S - Journal of Synchrotron Radiation
 
 \begin{document} % DO NOT DELETE THIS LINE
 
@@ -110,7 +112,7 @@ Although the idea is to replace the toroidal mirrors in ALS protein crystallogra
 It is important to note that until recently, the fabrication of such complex surfaces has not been been possible at the error levels that we require. For a typical application at the \inred{upgraded} ALS, the mirror-to-source distance is \SI{20}{\meter}\inred{, the mirror-to-focal plane is \SI{10}{\meter} (magnification 1:2)}, and so with a \SI{7}{\micro\meter} vertical source size \inred{RMS}, including angle doubling on reflection, the tangential slope error tolerance is \SI{0.17}{\micro\radian} \inred{RMS.}. The sagittal slope error tolerance is \SI{34}{\micro\radian} \inred{due to the forgiveness factor}. The tangential tolerance is extremely challenging, but mainly limited by metrology. Local area correction, and stitching-interferometer-based metrology have led to the creation of 1D curved optics with significantly smaller slope errors \cite{Yamauchi2002}. 
 %The problem is that current high accuracy metrology techniques cannot accommodate steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) reference beams, as now widely used in free form optics fabrication.
 A difficulty is the availability of high accuracy metrology to measure steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) \inred{\cite{Wyant, Poleshchuk}} reference beams, as now widely used in free form optics fabrication. 
-\inred{Recent progress in metrology techniques \cite{diamond2019} also supported by international collaborations, e.g.,  Europe’s MooNpics, are actively working to improve high-accuracy figure error measurements on a variety of surfaces. 
+\inred{Recent progress in metrology techniques \cite{diamond2019} also supported by international collaborations, e.g.,  Europe’s MooNpics, are actively working to improve high-accuracy figure error measurements on a variety of surfaces. However, the metrology with 3D aspherical x-ray optics, in particular strong sagittal curvature, remains a very difficult task.
 }
 Advances in fabrication and metrology make these optics feasible now.
 
@@ -130,10 +132,10 @@ For practical purposes we want to define the diaboloid surface as a function of 
 
 %\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt    
 
-\begin{figure}\label{fig:frame}
+\begin{figure}
 \includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
-%\input{fig1code.tex}
 \caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of equation~(\ref{eqn:diaboloidV}). }
+\label{fig:frame}
 \end{figure}
 
 
@@ -253,7 +255,7 @@ b)\\
 \caption{Calculated horizontal, vertical and radial focal sizes for a range of magnifications, measured by $\sigma$ and FWHM, and normalized to the magnification. We compare the (\textbf{a}) toroidal M2, and the (\textbf{b}) diaboloid. The normalized focal size should be constant for an ideal focusing system. \inred{The ALS-U source is considered.}}
 \end{figure}
 
-Normalizing the focal size to the magnification allows us to visualize the \inred{\sout{the}} broadening effects of the aberrations: the difference between the toroid and the diaboloid is apparent. Where $\sigma$ exceeds the fwhm, the aberrations are considered to be large. The toroidal mirror's radial aberrations $\sigma_r = (\sigma_h^2 + \sigma_v^2)^{1/2}$ (subindices $h$, $v$, and $r$ refer for horizontal, vertical and radial directions, respectively) are minimized for $M$~= 0.5, the 1:2 case, which is the ``working condition" for most ALS beamlines using toroids in this manner \cite{MacDowell2004}. For the diaboloid (Fig.~\ref{fig:scan}b), the situation is different: for most of the range ($M > 0.2$), the lines are almost constant and the $\sigma$ values are smaller than the fwhm by a ratio approaching 2.35. The diaboloids behave as ideal focusing optics.
+Normalizing the focal size to the magnification allows us to visualize \inred{the} broadening effects of the aberrations: the difference between the toroid and the diaboloid is apparent. Where $\sigma$ exceeds the fwhm, the aberrations are considered to be large. The toroidal mirror's radial aberrations $\sigma_r = (\sigma_h^2 + \sigma_v^2)^{1/2}$ (subindices $h$, $v$, and $r$ refer for horizontal, vertical and radial directions, respectively) are minimized for $M$~= 0.5, the 1:2 case, which is the ``working condition" for most ALS beamlines using toroids in this manner \cite{MacDowell2004}. For the diaboloid (Fig.~\ref{fig:scan}b), the situation is different: for most of the range ($M > 0.2$), the lines are almost constant and the $\sigma$ values are smaller than the fwhm by a ratio approaching 2.35. The diaboloids behave as ideal focusing optics.
 
 
 \section{Study of mirror shapes that approximate the diaboloid}
@@ -261,11 +263,11 @@ Normalizing the focal size to the magnification allows us to visualize the \inre
 
 With its parabolic and elliptical cross sections, the diaboloid is a highly aspherical surface. Fabrication and metrology within the required accuracy levels are challenging technological problems. For this reason, we believe that the most favorable diaboloid shapes for manufacture are those that come closest to toroidal. With circular cross sections in both directions, toroids can be manufactured with high accuracy. To assess the manufacturing feasibility, we study the departure of the diaboloid from the toroidal surface with radii from equation~(\ref{eqn:radii}). The Oasys diaboloid was used to subtract a toroid from the diaboloid, point-by-point, for comparison.
 
-In Fig.~\ref{fig:detrended} \inred{(top)} we have analysed diaboloid surfaces for three magnification ratios, $M$~= 0.2, 0.5, and 1.0 (1:5, 1:2 and 1:1), with \SI{2}{\milli\radian} grazing angle and a fixed \inred{horizontal} source distance, $p$~= \SI{20}{\meter}. In each case the toroid has been subtracted. Some sagittal profiles are also shown. 
+In Fig.~\ref{fig:detrended} \inred{(top)} we have analysed diaboloid surfaces for three magnification ratios, $M$~= 0.2, 0.5, and 1.0 (1:5, 1:2 and 1:1\inred{, respectively}), with \SI{2}{\milli\radian} grazing angle and a fixed \inred{horizontal} source distance, $p$~= \SI{20}{\meter}. In each case the toroid has been subtracted. Some sagittal profiles are also shown. 
 \inred{The profiles at the center ($Y=0$) and at $Y=\pm$\SI{100}{\milli\meter} present a similar shape (an inverted ``U"), with a flat part at the middle ($|Y|<$\SI{5}{\milli\meter}).
 % It can be appreciated in the magnification 1:5 ($p$~= \SI{20}{\meter}, $q$~= \SI{4}{\meter}) and 1:1 ($p$~= $q$~= \SI{20}{\meter}) a \inred{\sout{slight}} variation of the sagittal profile when going from
 % However t
-The change of height goes from about \SI{100}{\micro\meter} for $M=1:5$ to \SI{6}{\micro\meter} for $M=1:1$. 
+The change of height goes from about \SI{100}{\micro\meter} for $M=$~1:5 to \SI{6}{\micro\meter} for $M=$~1:1. 
 }
 At the 1:2 magnification condition, for a grazing angle of \SI{2}{\milli\radian} as used in ALS Beamline 12.2.2 (Fig.~\ref{fig:detrended}\inred{b}), the maximum difference from the toroidal shape is \SI{25}{\micro\meter}. For a grazing angle of \SI{5}{\milli\radian} as used in the protein crystallography beamlines (Fig.~\ref{fig:detrended}\inred{e}), the maximum difference is \SI{1.4}{\micro\meter} and the cross-sectional shape difference is almost uniform in the interval \inred{$|Y|<$\SI{200}{\milli\meter} along the} tangential direction.
 
@@ -324,12 +326,14 @@ We apply the manufacturing considerations to the case of the Beamline 12.2.2 aft
 \caption{Surface shapes for \inred{beamline} 12.2.2 with a toroid detrended and selected sagittal profiles: (\textbf{a}) diaboloid, (\textbf{b}) cone (equation~(\ref{eq:sagRadius})), and (\textbf{c}) elliptical cylinder bent to a parabola. The detrended toroid major radius is $R_t$~= \SI{8.075}{\kilo\meter} and the minor radius is $R_s$~= \SI{22.595}{\milli\meter}.}
 \end{figure}
 
-Two approximate solutions are studied by ray tracing. First, using a substrate with circular sagittal cross-sections, with a radius that changes linearly along the $Y$ (tangential) direction Fig.~\ref{fig:detrendedBeamline}b as indicated in equation~(\ref{eq:sagRadius}). The second one\inred{\sout{, more precise at a first view,}} would consist in pre-shaping a cylinder with elliptical sagittal cross-sections that matches the optimal sagittal profile at $Y$~= 0 (Fig.~\ref{fig:detrendedBeamline}c). Such a surface could be manufacturable with sufficient accuracy.
+Two approximate solutions are studied by ray tracing. First, using a substrate with circular sagittal cross-sections, with a radius that changes linearly along the $Y$ (tangential) direction Fig.~\ref{fig:detrendedBeamline}b as indicated in equation~(\ref{eq:sagRadius}). The second one
+%\inred{\sout{, more precise at a first view,}} 
+would consist in pre-shaping a cylinder with elliptical sagittal cross-sections that matches the optimal sagittal profile at $Y$~= 0 (Fig.~\ref{fig:detrendedBeamline}c). Such a surface could be manufacturable with sufficient accuracy.
 
 The spot size produced by the diaboloid is 10 $\times$ \SI{18}{\micro\meter^2} (Fig.~\ref{fig:als}b$_2$). The first approximation (cone bent to parabola) produces a spot of 12 $\times$ \SI{23}{\micro\meter^2} (Fig.~\ref{fig:finalcomparison}a). In the case that this cone is degenerated into a cylinder, the size becomes 14 $\times$ \SI{33}{\micro\meter^2} and an aberration tail appears in vertical direction (Fig.~\ref{fig:finalcomparison}b). This is due to this beamline being close but not exactly at 1:2 magnification (it is exactly M = 
 % $q$:$p$ = 8.075:18.800
 \inred{1:2.33}). If using the second approximation (cylinder with elliptical section) we obtain: 16 $\times$ \SI{38}{\micro\meter^2} with a strong aberration tail, for the same reason (Fig.~\ref{fig:finalcomparison}c).
-In the horizontal direction, the mirror with sagittal elliptical cross-sections produce \inred{larger} focal spots (Fig.~\ref{fig:finalcomparison}c) than those with circular cross-sections (Fig.~\ref{fig:finalcomparison}a and b). \inred{This may result paradoxal at a first view, but shows a cross-over between tangential and sagittal directions: to improve the sagittal focus, it is preferred to use the circular section but with changing curvature along the tangential direction, rather than use the ideal sagittal profile (ellipse) without change along the tangential direction. }
+In the horizontal direction,  sagittal elliptical cross-sections produce\inred{s larger} focal spots (Fig.~\ref{fig:finalcomparison}c) than those with circular cross-sections (Fig.~\ref{fig:finalcomparison}a and b). \inred{This may result paradoxal at a first view, but shows a cross-over between tangential and sagittal directions: to improve the sagittal focus, it is preferred to use the circular section but with changing curvature along the tangential direction, rather than use the ideal sagittal profile (ellipse) without change along the tangential direction. }
 
 We check now the beamline in a optimal 1:2 configuration, by setting $q$~= \SI{9.4}{\meter}. Here the diaboloid produces a spot of 12 $\times$ \SI{22}{\micro\meter^2} (not shown), 13 $\times$ \SI{26}{\micro\meter^2} for the cone and \inred{the same} for the circular cylinder (Fig.~\ref{fig:finalcomparison}d), as expected because for 1:2 magnification the cone degenerates in a cylinder. The result for the elliptical cylinder is similar (not shown), demonstrating that there is not much benefit in this case to shape the cylinder with a more complicated elliptical section.  
 
