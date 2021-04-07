@@ -41,11 +41,12 @@
 % \usepackage{rotating}
 \usepackage{siunitx}
 \usepackage[hyphens,spaces,obeyspaces]{url}
-\usepackage{color}
+% \usepackage{color}
 \usepackage{cprotect}
 \usepackage{textgreek}
 \usepackage[normalem]{ulem}
-\usepackage{hyperref}
+% \usepackage{hyperref} %GIVE PROBLEMS: REMOVES Figure XX LABEL!!!!!
+% \usepackage{url}
 
 \newcommand{\todo}[1]{{\color{red}[TODO: "#1'']}}
 \newcommand{\inblue}[1]{{\color{blue}#1}}
@@ -72,8 +73,8 @@
 \author[a]{Ian}{Lacey}
 \author[a]{Howard A.}{Padmore}
 
-\aff[a]{Advanced Light Source, LBNL, Berkeley CA, \country{USA}}
-\aff[b]{European Synchrotron Radiation Facility, 71 Avenue des Martyrs F-38000 Grenoble \country{France}}
+\aff[a]{Advanced Light Source LBNL, Berkeley CA, USA}
+\aff[b]{European Synchrotron Radiation Facility, 71 Avenue des Martyrs F-38000 Grenoble, France}
 
 
 
@@ -83,7 +84,7 @@ The diaboloid mirror is a surface that converts a spherical wave to a cylindrica
 
 \begin{abstract}
 The diaboloid is a reflecting surface that converts a spherical wave to a cylindrical wave. This complex surface may find application in new Advanced Light Source bending magnet beamlines or in other beamlines that now use toroidal optics for astigmatic focusing. We describe here the numerical implementation of the diaboloid mirrors and study by ray tracing the benefit of this mirror in beamlines exploiting diffraction-limited storage rings.
-\inred{The use of diaboloids becomes especially interesting for the new low-emittance storage rings because for such small sources the reduction of aberration becomes essential. The validity of the toroidal and other mirror surfaces approximating the diaboloid, and the effect of the mirror magnification are discussed.}
+\inred{The use of diaboloids becomes especially interesting for the new low-emittance storage rings because the reduction of aberration becomes essential for such small sources. The validity of the toroidal and other mirror surfaces approximating the diaboloid, and the effect of the mirror magnification are discussed.}
 \end{abstract}
 
 \section{Introduction}
@@ -111,7 +112,7 @@ Although the idea is to replace the toroidal mirrors in ALS protein crystallogra
 
 It is important to note that until recently, the fabrication of such complex surfaces has not been been possible at the error levels that we require. For a typical application at the \inred{upgraded} ALS, the mirror-to-source distance is \SI{20}{\meter}\inred{, the mirror-to-focal plane is \SI{10}{\meter} (magnification 1:2)}, and so with a \SI{7}{\micro\meter} vertical source size \inred{RMS}, including angle doubling on reflection, the tangential slope error tolerance is \SI{0.17}{\micro\radian} \inred{RMS.}. The sagittal slope error tolerance is \SI{34}{\micro\radian} \inred{due to the forgiveness factor}. The tangential tolerance is extremely challenging, but mainly limited by metrology. Local area correction, and stitching-interferometer-based metrology have led to the creation of 1D curved optics with significantly smaller slope errors \cite{Yamauchi2002}. 
 %The problem is that current high accuracy metrology techniques cannot accommodate steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) reference beams, as now widely used in free form optics fabrication.
-A difficulty is the availability of high accuracy metrology to measure steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) \inred{\cite{Wyant, Poleshchuk}} reference beams, as now widely used in free form optics fabrication. 
+A difficulty is the availability of high accuracy metrology to measure steeply curved optics. One possible solution is to use metrology based on computer generated hologram (CGH) reference beams \inred{\cite{Wyant, Poleshchuk}}, as now widely used in free form optics fabrication. 
 \inred{Recent progress in metrology techniques \cite{diamond2019} also supported by international collaborations, e.g.,  Europe’s MooNpics, are actively working to improve high-accuracy figure error measurements on a variety of surfaces. However, the metrology with 3D aspherical x-ray optics, in particular strong sagittal curvature, remains a very difficult task.
 }
 Advances in fabrication and metrology make these optics feasible now.
@@ -132,12 +133,19 @@ For practical purposes we want to define the diaboloid surface as a function of 
 
 %\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt    
 
-\begin{figure}
-\includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
-\caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of equation~(\ref{eqn:diaboloidV}). }
-\label{fig:frame}
-\end{figure}
+% \begin{figure}
+% \label{fig:frame}
+% \includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
+% \caption{
+% Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of equation~(\ref{eqn:diaboloidV}). }
+% \end{figure}
 
+\begin{figure}
+    \centering
+    \includegraphics[width=0.95\textwidth]{figures/fig1.pdf}
+    \caption{Schematic (vertical section) of the reference frames: mirror-related $(X,Y,Z)$ used for numerical implementation, and mirror-canonical $(x,y,z)$ where the diaboloid shape takes the form of equation~(\ref{eqn:diaboloidV}). }
+    \label{fig:frame}
+\end{figure}
 
 The equation of the diaboloid in the ``collimating'' configuration is (see Appendix \ref{appendix:diaboloid})
 \begin{multline}
@@ -196,7 +204,7 @@ To evaluate the accuracy of the calculations, we ray-traced an isolated diaboloi
 \caption{Comparison of images produced by two surfaces: horizontally focusing and vertically collimating. (\textbf{a}) Exact diaboloid implementation (solving quartic equation), and (\textbf{b}) approximated implementation (equation~(\ref{eqn:diaboloidV}) detrended with $z_\mathrm{plane}=\theta Y$). The calculated FWHM values are \SI{0.3}{\nano\meter}, and \SI{93}{\nano\meter}, respectively.}
 \end{figure}
 
-The expected result at the focal position is a line focus (segment) \inblue{with zero horizontal width} \inred{(beam focused in horizontal)} \inblue{and a vertical length of $L\sin\theta$} \inred{(collimated in vertical, and considering full illumination of the mirror)}. Ray tracing focal images are shown in Fig.~\ref{fig:pointToSegment} for a diaboloid calculated with the two mentioned methods (exact solution and the detrended equation~(\ref{eqn:diaboloidV})). The intensity profile along the vertical direction has a non-uniform distribution due to the beam intensity projected on the mirror surface with a grazing angle.
+The expected result at the focal position is a line focus (segment) with zero horizontal width \inred{(beam focused in horizontal)} and a vertical length of $L\sin\theta$ \inred{(collimated in vertical, and considering full illumination of the mirror)}. Ray tracing focal images are shown in Fig.~\ref{fig:pointToSegment} for a diaboloid calculated with the two mentioned methods (exact solution and the detrended equation~(\ref{eqn:diaboloidV})). The intensity profile along the vertical direction has a non-uniform distribution due to the beam intensity projected on the mirror surface with a grazing angle.
 \inred{This vertical intensity profile is invariant when the beam is propagated a long distance downstream from the image position, thus verifying the good collimation of the beam in the vertical plane.} Both numerical surfaces produce a narrow horizontal focus without aberration tails. However, some residual width is observed in the calculation: \SI{0.3}{\nano\meter} for the exact diaboloid equation and \SI{93}{\nano\meter} for the approximated one. The \SI{0.3}{\nano\meter} residual arises from the finite precision and from SHADOW's use of iterative algorithms to find ray intercepts.
 The approximate diaboloid's \SI{93}{\nano\meter} residual comes from the linear detrending of the basal plane, replacing an exact rotation. We believe that this accuracy is sufficient for all current, practical implementations, owing to the finite source sizes of \SI{10}{\micro\meter} to \SI{50}{\micro\meter}. The approximate solution gives us an intuitive and simple direct way to numerically evaluate and visualize the surface.
 
@@ -369,7 +377,7 @@ The diaboloid provides aberration-free focusing and will be useful in all cases 
 %devolves to parabolic curvature in the tangential direction and elliptical curvature in the sagittal direction.
 For \SI{5}{\milli\radian} grazing angles, and typical beamline parameters, the deviation of the surface from toroidal is below \SI{2}{\micro\meter}, a thickness at which sputtering can be used to deposit a thin, spatially-graded, correcting layer. Additionally, at the 1:2 magnification condition, the parabolic tangential shape could be created by bending, and the unbent mirror would have elliptical or circular sagittal cross-sections. This opens up possibilities for normal-incidence optical interferometry.
 
-As fabrication and metrology improve, diaboloids can be used to produce aberration-free focusing under any magnification, exceeding the performance of toroids and offering the possibility of \inred{simplifying the} beamlines by eliminating the need for additional demagnifying elements. \inred{The Oasys workspace containing the optical systems discussed in this work and other support files are available at the address: \url{https://github.com/oasys-als-kit/Paper\_JSR\_hf5419}}
+As fabrication and metrology improve, diaboloids can be used to produce aberration-free focusing under any magnification, exceeding the performance of toroids and offering the possibility of \inred{simplifying the} beamlines by eliminating the need for additional demagnifying elements. \inred{The Oasys workspace containing the optical systems discussed in this work and other support files are available at the address: \url{https://github.com/oasys-als-kit/Paper_JSR_hf5419}}
 
 
    %-------------------------------------------------------------------------
