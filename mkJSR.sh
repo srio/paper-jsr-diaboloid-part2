@@ -6,7 +6,7 @@
 # are created
 #
 
-cd /users/srio/OASYS1.2/paper-jsr-diaboloid-part2
+cd /users/srio/Documents/paper-jsr-diaboloid-part2
 ./latex_run_all.sh
 rm -rf JSR
 mkdir JSR
@@ -15,7 +15,7 @@ cp ../Diaboloid.tex ./main.tex
 cp ../iucr.bib .
 cp ../iucr.cls .
 cp ../iucr.bst .
-cp ../harvard.sty .
+#cp ../harvard.sty .
 
 cp -r ../figures .
 
@@ -54,12 +54,12 @@ mv main.tex tmp5.tex
 sed "s/figures\/fig5.pdf/figure5.pdf/" tmp5.tex > main.tex
 
 # figure 6
-cp figures/scan_toroid.png ./figure6a.png
-cp figures/scan_diaboloid.png ./figure6b.png
+cp figures/scan_toroid.pdf ./figure6a.pdf
+cp figures/scan_diaboloid.pdf ./figure6b.pdf
 mv main.tex tmp6a.tex
-sed "s/figures\/scan_toroid.png/figure6a.png/" tmp6a.tex > main.tex
+sed "s/figures\/scan_toroid.pdf/figure6a.pdf/" tmp6a.tex > main.tex
 mv main.tex tmp6b.tex
-sed "s/figures\/scan_diaboloid.png/figure6b.png/" tmp6b.tex > main.tex
+sed "s/figures\/scan_diaboloid.pdf/figure6b.pdf/" tmp6b.tex > main.tex
 
 # figure 7
 cp figures/fig7.pdf ./figure7.pdf
@@ -78,8 +78,8 @@ sed "s/figures\/fig9.pdf/figure9.pdf/" tmp9.tex > main.tex
 
 
 
-mv main.tex tmpP.tex
-sed "s/documentclass/documentclass[preprint]/" tmpP.tex > main.tex
+#mv main.tex tmpP.tex
+#sed "s/documentclass/documentclass[preprint]/" tmpP.tex > main.tex
  
 rm -rf figures tmp*
 
